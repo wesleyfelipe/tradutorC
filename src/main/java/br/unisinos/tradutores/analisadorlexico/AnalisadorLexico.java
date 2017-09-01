@@ -8,7 +8,9 @@ public class AnalisadorLexico {
 
 	// private static char[] separadores = {',', ';', '(',')', '{', '}', '\n',
 	// '\r', ' ','\"', '\'', ':'};
-	private static String[] separadores = {"#" ,",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":" , "=", "+", "-" };
+	// TODO Completar esta lista
+	private static String[] separadores = { "#", ",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":", "=",
+			"+", "-" };
 
 	public static List<Token> analisar(String code) {
 
@@ -21,23 +23,40 @@ public class AnalisadorLexico {
 
 	protected static List<Token> analisarLexemas(List<String> lexemas) {
 		List<Token> tokens = new ArrayList<Token>();
-		// TODO
+		// TODO implementar
 		return tokens;
 	}
 
+	// TODO incompleto
 	protected static List<String> separarLexemas(String code) {
 		List<String> lexemas = new ArrayList<String>();
 
+		Boolean insideString = Boolean.FALSE;
+
 		String pilha = "";
 		for (Character ch : code.toCharArray()) {
-			if (isSeparador(ch)) {
-				if (!pilha.isEmpty()) {
-					lexemas.add(pilha);
+						
+			if (ch == '"') {
+				if (!insideString) {
+					insideString = Boolean.TRUE;
+				} else {
+					insideString = Boolean.FALSE;
 				}
+				pilha += ch;
+				continue;
+			}
+			
+			if(insideString){
+				pilha += ch;
+				continue;
+			}
 
-				if (ch != ' ') {
+			if (isSeparador(ch.toString())) {
+				if (!pilha.isEmpty())
+					lexemas.add(pilha);
+
+				if (!(ch == ' ' || ch == '\n'))
 					lexemas.add(ch.toString());
-				}
 
 				pilha = "";
 			} else {
@@ -48,8 +67,8 @@ public class AnalisadorLexico {
 		return lexemas;
 	}
 
-	protected static Boolean isSeparador(Character character) {
-		return Arrays.asList(separadores).contains(character.toString());
+	protected static Boolean isSeparador(String lex) {
+		return Arrays.asList(separadores).contains(lex);
 	}
 
 	protected static String removerComentarios(String code) {

@@ -6,7 +6,7 @@ public class IndetificadorLogicOP {
 
 	public static Token verify(String lexema) {
 
-		//TODO
+		//TODO implementar
 
 		return null;
 

@@ -37,19 +37,19 @@ public class AnalisadorLexicoTest {
 	}
 	
 	@Test
-	public void isSeparadorComentarios_true(){
+	public void isSeparador_true(){
 		
-		Assert.assertTrue(AnalisadorLexico.isSeparador(';'));
-		Assert.assertTrue(AnalisadorLexico.isSeparador('\"'));
-		Assert.assertTrue(AnalisadorLexico.isSeparador(':'));
+		Assert.assertTrue(AnalisadorLexico.isSeparador(";"));
+		Assert.assertTrue(AnalisadorLexico.isSeparador("\""));
+		Assert.assertTrue(AnalisadorLexico.isSeparador(":"));
 	}
 	
 	@Test
 	public void isSeparador_false(){
 		
-		Assert.assertFalse(AnalisadorLexico.isSeparador('a'));
-		Assert.assertFalse(AnalisadorLexico.isSeparador('8'));
-		Assert.assertFalse(AnalisadorLexico.isSeparador('>'));
+		Assert.assertFalse(AnalisadorLexico.isSeparador("a"));
+		Assert.assertFalse(AnalisadorLexico.isSeparador("8"));
+		Assert.assertFalse(AnalisadorLexico.isSeparador(">"));
 	}
 	
 	@Test
@@ -60,6 +60,65 @@ public class AnalisadorLexicoTest {
 		lexemas.add("int");
 		lexemas.add("=");
 		lexemas.add("0");
+		lexemas.add(";");
+		
+		List<String> resultList = AnalisadorLexico.separarLexemas(code);
+		
+		Assert.assertEquals(lexemas, resultList);
+		
+	}
+	
+	@Test
+	public void separarLexemas2(){
+		String code = "int=0;";
+		
+		List<String> lexemas = new ArrayList<String>();
+		lexemas.add("int");
+		lexemas.add("=");
+		lexemas.add("0");
+		lexemas.add(";");
+		
+		List<String> resultList = AnalisadorLexico.separarLexemas(code);
+		
+		Assert.assertEquals(lexemas, resultList);
+		
+	}
+	
+	@Test
+	public void separarLexemas3(){
+		String code = "int i =0;\n if(true){i= 1}";
+		
+		List<String> lexemas = new ArrayList<String>();
+		lexemas.add("int");
+		lexemas.add("i");
+		lexemas.add("=");
+		lexemas.add("0");
+		lexemas.add(";");
+		lexemas.add("if");
+		lexemas.add("(");
+		lexemas.add("true");
+		lexemas.add(")");
+		lexemas.add("{");
+		lexemas.add("i");
+		lexemas.add("=");
+		lexemas.add("1");
+		lexemas.add("}");
+		
+		List<String> resultList = AnalisadorLexico.separarLexemas(code);
+		
+		Assert.assertEquals(lexemas, resultList);
+		
+	}
+	
+	@Test
+	public void separarLexemas4(){
+		String code = "String palavra = \"meu texto\"; ";
+		
+		List<String> lexemas = new ArrayList<String>();
+		lexemas.add("String");
+		lexemas.add("palavra");
+		lexemas.add("=");
+		lexemas.add("\"meu texto\"");
 		lexemas.add(";");
 		
 		List<String> resultList = AnalisadorLexico.separarLexemas(code);

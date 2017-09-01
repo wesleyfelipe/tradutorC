@@ -6,6 +6,7 @@ import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
 public class IndetificadorReservedWord {
 
+	//TODO incompleto
 	public static Token verify(String lexema) {
 
 		String lex = lexema.trim();
