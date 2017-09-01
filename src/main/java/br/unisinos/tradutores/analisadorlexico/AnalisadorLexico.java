@@ -6,10 +6,9 @@ import java.util.List;
 
 public class AnalisadorLexico {
 
-	// private static Character[] separadores = { ',', ';', '(', ')', '{', '}',
-	// '\n', '\r', ' ', '\"', '\'', ':' };
-	private static String[] separadores = { ",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":", "=", "+",
-			"-" };
+	// private static char[] separadores = {',', ';', '(',')', '{', '}', '\n',
+	// '\r', ' ','\"', '\'', ':'};
+	private static String[] separadores = {"#" ,",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":" , "=", "+", "-" };
 
 	public static List<Token> analisar(String code) {
 
