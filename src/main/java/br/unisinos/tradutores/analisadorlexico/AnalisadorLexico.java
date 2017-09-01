@@ -8,7 +8,7 @@ public class AnalisadorLexico {
 
 	// private static char[] separadores = {',', ';', '(',')', '{', '}', '\n',
 	// '\r', ' ','\"', '\'', ':'};
-	private static String[] separadores = { ",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":" , "=", "+", "-" };
+	private static String[] separadores = {"#" ,",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":" , "=", "+", "-" };
 
 	public static List<Token> analisar(String code) {
 
