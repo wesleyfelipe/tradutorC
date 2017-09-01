@@ -1,7 +1,9 @@
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.analisadorlexico.identificadores;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import br.unisinos.tradutores.analisadorlexico.identificadores.IndetificadorReservedWord;
 
 public class IdentificadorReservedWordTest {
 

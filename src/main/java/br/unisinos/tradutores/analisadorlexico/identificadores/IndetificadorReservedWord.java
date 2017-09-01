@@ -1,4 +1,8 @@
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.analisadorlexico.identificadores;
+
+import br.unisinos.tradutores.analisadorlexico.Token;
+import br.unisinos.tradutores.analisadorlexico.enums.ReservedWord;
+import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
 public class IndetificadorReservedWord {
 

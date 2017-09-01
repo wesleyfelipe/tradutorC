@@ -1,4 +1,6 @@
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.analisadorlexico.identificadores;
+
+import br.unisinos.tradutores.analisadorlexico.Token;
 
 public class IndetificadorRelationalOp {
 

@@ -1,5 +1,7 @@
 package br.unisinos.tradutores.analisadorlexico;
 
+import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
+
 public class Token {
 	
 	private TipoToken tipo;
