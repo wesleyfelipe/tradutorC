@@ -1,19 +1,20 @@
-package br.unisinos.tradutores.analisadorlexico.identificadores;
+package br.unisinos.tradutores.analisadorlexico.geradorestoken;
 
 import java.util.Arrays;
 
+import br.unisinos.tradutores.analisadorlexico.GeracaoTokenTo;
 import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
-public class IdentificadorId {
+public class GeradorIdToken {
 
 	private static final String[] PREFIXOS = { "a", "b", "c", "d", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
 			"n", "o", "p", "q", "r", "s", "t", "u", "v", "x", "y", "z" };
 
-	public static Token verify(String lexema) {
+	public static GeracaoTokenTo verify(String lexema) {
 
 		if (isIdentificadorVariavel(lexema))
-			return new Token(TipoToken.ID, lexema);
+			return new GeracaoTokenTo(new Token(TipoToken.ID, lexema));
 
 		return null;
 

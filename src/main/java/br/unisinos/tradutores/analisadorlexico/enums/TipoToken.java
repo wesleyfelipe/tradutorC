@@ -9,6 +9,7 @@ public enum TipoToken {
 	LITERAL_STRING,
 	EQUAL_OP,
 	ARITHMETICAL_OP,
+	LOGICAL_OP,
 	L_PAREN,
 	R_PAREN,
 	L_BRACKET,
