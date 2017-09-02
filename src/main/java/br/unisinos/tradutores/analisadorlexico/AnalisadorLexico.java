@@ -6,6 +6,7 @@ import java.util.List;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorId;
 import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorNumber;
+import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorOtherCharacter;
 import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorReservedWord;
 
 public class AnalisadorLexico {
@@ -26,7 +27,7 @@ public class AnalisadorLexico {
 		return tokens;
 	}
 	
-	//TODO incompleto
+	//TODO incompleto lembrar dos arrays e includes de arquivos .h
 	protected static Token analisarLexema(String lexema){
 		Token token = null;
 		
@@ -39,6 +40,10 @@ public class AnalisadorLexico {
 			return token;
 		
 		token = IdentificadorId.verify(lexema);
+		if(token != null)
+			return token;
+		
+		token = IdentificadorOtherCharacter.verify(lexema);
 		if(token != null)
 			return token;
 		
