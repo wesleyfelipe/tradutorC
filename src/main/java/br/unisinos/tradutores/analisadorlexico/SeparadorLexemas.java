@@ -7,7 +7,7 @@ import java.util.List;
 public class SeparadorLexemas {
 
 	private static String[] SEPARADORES = { "#", ",", ";", "(", ")", "{", "}", "\n", "\r", "\t", " ", "\"", "\'", ":",
-			"=", "+", "-" };
+			"=", "+", "-", "%", "!", "&", "|" };
 
 	protected static List<String> separarLexemas(String code) {
 		List<String> lexemas = new ArrayList<String>();
@@ -35,14 +35,16 @@ public class SeparadorLexemas {
 			} else {
 				pilha += isCharacterEspaco(ch) ? "" : ch;
 			}
-			
 		}
+		
+		if(!pilha.isEmpty())
+			lexemas.add(pilha);
 
 		return lexemas;
 	}
 	
 	protected static Boolean isCharacterAspas(Character ch){
-		return ch == '"';
+		return ch == '"' || ch == '\'';
 	}
 	
 	protected static Boolean isCharacterEspaco(Character ch){

@@ -145,5 +145,38 @@ public class SeparadorLexemasTest {
 		Assert.assertEquals(lexemas, resultList);
 		
 	}
+	
+	@Test
+	public void separarLexemas7_stringInvalida(){
+		String code = "String palavra = \"meu \n texto; ";
+		
+		List<String> lexemas = new ArrayList<String>();
+		lexemas.add("String");
+		lexemas.add("palavra");
+		lexemas.add("=");
+		lexemas.add("\"meu \n texto; ");
+		
+		List<String> resultList = SeparadorLexemas.separarLexemas(code);
+		
+		Assert.assertEquals(lexemas, resultList);
+		
+	}
+	
+	@Test
+	public void separarLexemas8(){
+		String code = "char letra = 'a'; ";
+		
+		List<String> lexemas = new ArrayList<String>();
+		lexemas.add("char");
+		lexemas.add("letra");
+		lexemas.add("=");
+		lexemas.add("'a'");
+		lexemas.add(";");
+		
+		List<String> resultList = SeparadorLexemas.separarLexemas(code);
+		
+		Assert.assertEquals(lexemas, resultList);
+		
+	}
 
 }
