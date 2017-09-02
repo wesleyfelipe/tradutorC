@@ -12,7 +12,7 @@ public class IdentificadorReservedWordTest {
 	public void verify_true(){
 		Token expected = new Token(TipoToken.RESERVED_WORD, "while");
 		
-		Token result = IndetificadorReservedWord.verify("while");
+		Token result = IdentificadorReservedWord.verify("while");
 		
 		Assert.assertEquals(expected, result);
 	}
@@ -20,7 +20,7 @@ public class IdentificadorReservedWordTest {
 	@Test
 	public void verify_false() {
 		
-		Token result = IndetificadorReservedWord.verify("do1");
+		Token result = IdentificadorReservedWord.verify("do1");
 		
 		Assert.assertNull(result);
 	}

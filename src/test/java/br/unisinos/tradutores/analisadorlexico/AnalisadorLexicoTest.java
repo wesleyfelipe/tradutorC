@@ -1,7 +1,12 @@
 package br.unisinos.tradutores.analisadorlexico;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
 public class AnalisadorLexicoTest {
 
@@ -31,6 +36,24 @@ public class AnalisadorLexicoTest {
 		Assert.assertEquals(experado, result3);
 		Assert.assertEquals(experado4, result4);
 		Assert.assertEquals(experado5, result5);
+	}
+	
+	@Test
+	public void analisar1(){
+		String code = "int i = 0;";
+		
+		List<Token> expected = new ArrayList<Token>();
+		expected.add(new Token(TipoToken.RESERVED_WORD, "int"));
+		expected.add(new Token(TipoToken.ID, "i"));
+		expected.add(new Token(TipoToken.EQUAL_OP, "="));
+		expected.add(new Token(TipoToken.NUMBER, "0"));
+		expected.add(new Token(TipoToken.SEMICOLON, ";"));
+		
+		
+		List<Token> result = AnalisadorLexico.analisar(code);
+		
+		Assert.assertEquals(expected, result);
+		
 	}
 	
 	

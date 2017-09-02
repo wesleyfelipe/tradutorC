@@ -15,5 +15,6 @@ public enum TipoToken {
 	R_BRACKET,
 	COMMA,
 	SEMICOLON,
-	FUNCTION;
+	FUNCTION,
+	UNKNOWN;
 }

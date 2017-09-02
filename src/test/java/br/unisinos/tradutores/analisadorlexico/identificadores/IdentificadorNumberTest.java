@@ -6,13 +6,13 @@ import org.junit.Test;
 import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
-public class IndetificadorNumberTest {
+public class IdentificadorNumberTest {
 	
 	@Test
 	public void verify_true(){
 		Token expected = new Token(TipoToken.NUMBER, "1");
 		
-		Token result = IndetificadorNumber.verify("1");
+		Token result = IdentificadorNumber.verify("1");
 		
 		Assert.assertEquals(expected, result);
 	}
@@ -20,7 +20,7 @@ public class IndetificadorNumberTest {
 	@Test
 	public void verify_false() {
 		
-		Token result = IndetificadorNumber.verify("do1");
+		Token result = IdentificadorNumber.verify("do1");
 		
 		Assert.assertNull(result);
 	}

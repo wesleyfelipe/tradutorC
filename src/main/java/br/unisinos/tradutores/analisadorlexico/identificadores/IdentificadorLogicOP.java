@@ -2,7 +2,7 @@ package br.unisinos.tradutores.analisadorlexico.identificadores;
 
 import br.unisinos.tradutores.analisadorlexico.Token;
 
-public class IndetificadorRelationalOp {
+public class IdentificadorLogicOP {
 
 	public static Token verify(String lexema) {
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
-public class IndetificadorReservedWord {
+public class IdentificadorReservedWord {
 
 	private static final String[] PALAVRAS_RESERVADAS = { "do", "while", "if", "else", "switch", "for", "return",
 			"null", "int", "float", "double", "string", "bool" };

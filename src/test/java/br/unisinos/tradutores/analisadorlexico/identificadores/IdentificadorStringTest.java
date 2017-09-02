@@ -6,14 +6,14 @@ import org.junit.Test;
 import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
-public class IndetificadorStringTest {
+public class IdentificadorStringTest {
 
 	@Test
 	public void verify_true(){
 		String lexema = "\"teste\"";
 		Token expected = new Token(TipoToken.LITERAL_STRING, lexema);
 		
-		Token result = IndetificadorString.verify(lexema);
+		Token result = IdentificadorString.verify(lexema);
 		
 		Assert.assertEquals(expected, result);
 	}
@@ -21,10 +21,10 @@ public class IndetificadorStringTest {
 	@Test
 	public void verify_false(){
 		String lexema1 = "teste\"";
-		Token result1 = IndetificadorString.verify(lexema1);
+		Token result1 = IdentificadorString.verify(lexema1);
 		
 		String lexema2 = "\"teste";
-		Token result2 = IndetificadorString.verify(lexema2);
+		Token result2 = IdentificadorString.verify(lexema2);
 		
 		Assert.assertNull(result1);
 		Assert.assertNull(result2);

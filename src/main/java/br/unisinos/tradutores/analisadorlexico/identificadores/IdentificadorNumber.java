@@ -5,7 +5,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
-public class IndetificadorNumber {
+public class IdentificadorNumber {
 
 	public static Token verify(String lexema) {
 
