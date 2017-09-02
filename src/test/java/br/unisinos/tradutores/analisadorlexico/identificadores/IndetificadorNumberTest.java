@@ -6,13 +6,13 @@ import org.junit.Test;
 import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 
-public class IdentificadorReservedWordTest {
-
+public class IndetificadorNumberTest {
+	
 	@Test
 	public void verify_true(){
-		Token expected = new Token(TipoToken.RESERVED_WORD, "while");
+		Token expected = new Token(TipoToken.NUMBER, "1");
 		
-		Token result = IndetificadorReservedWord.verify("while");
+		Token result = IndetificadorNumber.verify("1");
 		
 		Assert.assertEquals(expected, result);
 	}
@@ -20,8 +20,9 @@ public class IdentificadorReservedWordTest {
 	@Test
 	public void verify_false() {
 		
-		Token result = IndetificadorReservedWord.verify("do1");
+		Token result = IndetificadorNumber.verify("do1");
 		
 		Assert.assertNull(result);
 	}
+
 }
