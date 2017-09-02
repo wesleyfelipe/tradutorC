@@ -6,13 +6,9 @@ import java.util.List;
 
 public class SeparadorLexemas {
 
-	// private static char[] separadores = {',', ';', '(',')', '{', '}', '\n',
-	// '\r', ' ','\"', '\'', ':'};
-	// TODO Completar esta lista
-	private static String[] SEPARADORES = { "#", ",", ";", "(", ")", "{", "}", "\n", "\r", " ", "\"", "\'", ":", "=",
-			"+", "-" };
+	private static String[] SEPARADORES = { "#", ",", ";", "(", ")", "{", "}", "\n", "\r", "\t", " ", "\"", "\'", ":",
+			"=", "+", "-" };
 
-	// TODO incompleto
 	protected static List<String> separarLexemas(String code) {
 		List<String> lexemas = new ArrayList<String>();
 
@@ -21,25 +17,40 @@ public class SeparadorLexemas {
 
 		for (Character ch : code.toCharArray()) {
 
-			if (ch == '"') {
+			if (isCharacterAspas(ch)) {
 				entreAspas = !entreAspas;
 				pilha += ch;
+				
 			} else if (entreAspas) {
 				pilha += ch;
+				
 			} else if (isSeparador(ch.toString())) {
+				
 				if (!pilha.isEmpty())
 					lexemas.add(pilha);
-
-				if (!(ch == ' ' || ch == '\n'))
+				if (!isCharacterIgnorado(ch))
 					lexemas.add(ch.toString());
-
 				pilha = new String();
+				
 			} else {
-				pilha += (ch == ' ') ? "" : ch;
+				pilha += isCharacterEspaco(ch) ? "" : ch;
 			}
+			
 		}
 
 		return lexemas;
+	}
+	
+	protected static Boolean isCharacterAspas(Character ch){
+		return ch == '"';
+	}
+	
+	protected static Boolean isCharacterEspaco(Character ch){
+		return ch == ' ';
+	}
+
+	protected static Boolean isCharacterIgnorado(Character ch) {
+		return ch == ' ' || ch == '\n' || ch == '\t';
 	}
 
 	protected static Boolean isSeparador(String lex) {

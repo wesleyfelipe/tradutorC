@@ -115,5 +115,35 @@ public class SeparadorLexemasTest {
 		Assert.assertEquals(lexemas, resultList);
 		
 	}
+	
+	@Test
+	public void separarLexemas6(){
+		String code = "switch(a):\t\ncase 1:\nb = 0;\ndefault:\nb=8; ";
+		
+		List<String> lexemas = new ArrayList<String>();
+		lexemas.add("switch");
+		lexemas.add("(");
+		lexemas.add("a");
+		lexemas.add(")");
+		lexemas.add(":");
+		lexemas.add("case");
+		lexemas.add("1");
+		lexemas.add(":");
+		lexemas.add("b");
+		lexemas.add("=");
+		lexemas.add("0");
+		lexemas.add(";");
+		lexemas.add("default");
+		lexemas.add(":");
+		lexemas.add("b");
+		lexemas.add("=");
+		lexemas.add("8");
+		lexemas.add(";");
+		
+		List<String> resultList = SeparadorLexemas.separarLexemas(code);
+		
+		Assert.assertEquals(lexemas, resultList);
+		
+	}
 
 }
