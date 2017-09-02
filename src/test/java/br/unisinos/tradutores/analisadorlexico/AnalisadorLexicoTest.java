@@ -56,5 +56,28 @@ public class AnalisadorLexicoTest {
 		
 	}
 	
+	@Test
+	public void analisar2(){
+		String code = "int calcular()\n{ return 1 + 1; \n\t}";
+		
+		List<Token> expected = new ArrayList<Token>();
+		expected.add(new Token(TipoToken.RESERVED_WORD, "int"));
+		expected.add(new Token(TipoToken.FUNCTION, "calcular"));
+		expected.add(new Token(TipoToken.L_PAREN, "("));
+		expected.add(new Token(TipoToken.R_PAREN, ")"));
+		expected.add(new Token(TipoToken.L_BRACKET, "{"));
+		expected.add(new Token(TipoToken.RESERVED_WORD, "return"));
+		expected.add(new Token(TipoToken.NUMBER, "1"));
+		expected.add(new Token(TipoToken.ARITHMETICAL_OP, "+"));
+		expected.add(new Token(TipoToken.NUMBER, "1"));
+		expected.add(new Token(TipoToken.SEMICOLON, ";"));
+		expected.add(new Token(TipoToken.R_BRACKET, "}"));
+		
+		List<Token> result = AnalisadorLexico.analisar(code);
+		
+		Assert.assertEquals(expected, result);
+		
+	}
+	
 	
 }

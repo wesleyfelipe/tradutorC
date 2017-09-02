@@ -15,29 +15,56 @@ public class IdentificadorOtherCharacter {
 	
 	public static Token verify(String lexema) {
 
-		if(EQUAL_OP.equals(lexema))
+		if(isEqualOp(lexema))
 			return new Token(TipoToken.EQUAL_OP, lexema);
 		
-		if(L_PAREN.equals(lexema))
+		if(isLParen(lexema))
 			return new Token(TipoToken.L_PAREN, lexema);
 		
-		if(R_PAREN.equals(lexema))
+		if(isRParen(lexema))
 			return new Token(TipoToken.R_PAREN, lexema);
 		
-		if(L_BRACKET.equals(lexema))
+		if(isLBracket(lexema))
 			return new Token(TipoToken.L_BRACKET, lexema);
 		
-		if(R_BRACKET.equals(lexema))
+		if(isRBracket(lexema))
 			return new Token(TipoToken.R_BRACKET, lexema);
 		
-		if(COMMA.equals(lexema))
+		if(isComma(lexema))
 			return new Token(TipoToken.COMMA, lexema);
 		
-		if(SEMICOLON.equals(lexema))
+		if(isSemicolon(lexema))
 			return new Token(TipoToken.SEMICOLON, lexema);
 
 		return null;
-
+	}
+	
+	protected static Boolean isEqualOp(String lexema){
+		return EQUAL_OP.equals(lexema);
+	}
+	
+	protected static Boolean isLParen(String lexema){
+		return L_PAREN.equals(lexema);
+	}
+	
+	protected static Boolean isRParen(String lexema){
+		return R_PAREN.equals(lexema);
+	}
+	
+	protected static Boolean isLBracket(String lexema){
+		return L_BRACKET.equals(lexema);
+	}
+	
+	protected static Boolean isRBracket(String lexema){
+		return R_BRACKET.equals(lexema);
+	}
+	
+	protected static Boolean isComma(String lexema){
+		return COMMA.equals(lexema);
+	}
+	
+	protected static Boolean isSemicolon(String lexema){
+		return SEMICOLON.equals(lexema);
 	}
 	
 }

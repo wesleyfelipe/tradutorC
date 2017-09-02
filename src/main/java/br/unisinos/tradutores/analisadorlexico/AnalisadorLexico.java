@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
+import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorArithmeticalOp;
+import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorFunction;
 import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorId;
 import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorNumber;
 import br.unisinos.tradutores.analisadorlexico.identificadores.IdentificadorOtherCharacter;
@@ -21,32 +23,46 @@ public class AnalisadorLexico {
 
 	protected static List<Token> analisarLexemas(List<String> lexemas) {
 		List<Token> tokens = new ArrayList<Token>();
-		for (String lex : lexemas) {
-			tokens.add(analisarLexema(lex));
+		for (int i = 0; i < lexemas.size(); i++) {
+			tokens.add(analisarLexema(i, lexemas));
 		}
 		return tokens;
 	}
-	
-	//TODO incompleto lembrar dos arrays e includes de arquivos .h
-	protected static Token analisarLexema(String lexema){
+
+	// TODO incompleto lembrar dos arrays e includes de arquivos .h
+	protected static Token analisarLexema(int position, List<String> lexemas) {
 		Token token = null;
+		String lexema = lexemas.get(position);
+		String proximoLexema = null;
 		
+		if(lexemas.size() > position + 1)
+			proximoLexema = lexemas.get(position + 1);
+		
+
 		token = IdentificadorReservedWord.verify(lexema);
-		if(token != null)
+		if (token != null)
 			return token;
-		
+
+		token = IdentificadorArithmeticalOp.verify(lexema);
+		if (token != null)
+			return token;
+
 		token = IdentificadorNumber.verify(lexema);
-		if(token != null)
+		if (token != null)
 			return token;
-		
+
+		token = IdentificadorFunction.verify(lexema, proximoLexema);
+		if (token != null)
+			return token;
+
 		token = IdentificadorId.verify(lexema);
-		if(token != null)
+		if (token != null)
 			return token;
-		
+
 		token = IdentificadorOtherCharacter.verify(lexema);
-		if(token != null)
+		if (token != null)
 			return token;
-		
+
 		return new Token(TipoToken.UNKNOWN, lexema);
 	}
 
