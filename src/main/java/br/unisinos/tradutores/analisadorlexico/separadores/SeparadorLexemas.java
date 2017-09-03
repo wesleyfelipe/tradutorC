@@ -1,4 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.analisadorlexico.separadores;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ public class SeparadorLexemas {
 	private static String[] SEPARADORES = { "#", ",", ";", "(", ")", "{", "}", "\n", "\r", "\t", " ", "\"", "\'", ":",
 			"=", "+", "-", "%", "!", "&", "|" };
 
-	protected static List<String> separarLexemas(String code) {
+	public static List<String> separarLexemas(String code) {
 		List<String> lexemas = new ArrayList<String>();
 
 		Boolean entreAspas = Boolean.FALSE;

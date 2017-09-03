@@ -12,6 +12,9 @@ import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorNumberToken
 import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorOtherCharacterToken;
 import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorRelationalOpToken;
 import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorReservedWordToken;
+import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
+import br.unisinos.tradutores.analisadorlexico.pojo.Token;
+import br.unisinos.tradutores.analisadorlexico.separadores.SeparadorLexemas;
 
 public class AnalisadorLexico {
 
@@ -33,7 +36,6 @@ public class AnalisadorLexico {
 
 			if (to.getSkipNext())
 				i++;
-
 		}
 
 		return tokens;
@@ -49,8 +51,8 @@ public class AnalisadorLexico {
 		return analisarLexema(lexema, proximoLexema);
 	}
 
-	// TODO incompleto lembrar dos arrays e includes de arquivos .h
 	protected GeracaoTokenTo analisarLexema(String lexema, String proximoLexema) {
+		
 		GeracaoTokenTo token = GeradorReservedWordToken.verify(lexema);
 		if (token != null)
 			return token;

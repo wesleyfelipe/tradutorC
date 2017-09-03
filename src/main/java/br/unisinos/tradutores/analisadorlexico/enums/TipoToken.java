@@ -17,5 +17,6 @@ public enum TipoToken {
 	COMMA,
 	SEMICOLON,
 	FUNCTION,
+	IMPORT,
 	UNKNOWN;
 }

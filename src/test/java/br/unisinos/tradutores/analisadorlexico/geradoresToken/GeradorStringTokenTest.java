@@ -3,10 +3,10 @@ package br.unisinos.tradutores.analisadorlexico.geradoresToken;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.unisinos.tradutores.analisadorlexico.GeracaoTokenTo;
-import br.unisinos.tradutores.analisadorlexico.Token;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorStringToken;
+import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
+import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 
 public class GeradorStringTokenTest {
 

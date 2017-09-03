@@ -1,4 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.analisadorlexico.pojo;
 
 public class GeracaoTokenTo {
 

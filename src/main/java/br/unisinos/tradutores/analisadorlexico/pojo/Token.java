@@ -1,4 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.analisadorlexico.pojo;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 

@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
+import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 
 public class AnalisadorLexicoTest {
 
@@ -145,6 +146,5 @@ public class AnalisadorLexicoTest {
 		
 		Assert.assertEquals(expected, result);
 	}
-	
-	
+		
 }
