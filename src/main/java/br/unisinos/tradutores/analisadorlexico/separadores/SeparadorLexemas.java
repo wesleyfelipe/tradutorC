@@ -52,9 +52,9 @@ public class SeparadorLexemas {
 	}
 
 	protected static Boolean isCharacterIgnorado(Character ch) {
-		return ch == ' ' || ch == '\n' || ch == '\t';
+		return ch == ' ' || ch == '\n' || ch == '\t' || ch=='\r' ;
 	}
-
+        
 	protected static Boolean isSeparador(String lex) {
 		return Arrays.asList(SEPARADORES).contains(lex);
 	}

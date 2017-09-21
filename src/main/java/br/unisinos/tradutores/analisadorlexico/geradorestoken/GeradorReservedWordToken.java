@@ -8,7 +8,7 @@ import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 
 public class GeradorReservedWordToken {
 
-	private static final String[] PALAVRAS_RESERVADAS = { "do", "while", "if", "else", "switch", "for", "return",
+	private static final String[] PALAVRAS_RESERVADAS = { "void","do", "while", "if", "else", "switch", "for", "return",
 			"null", "int", "float", "double", "string", "bool", "true", "false" };
 
 	public static GeracaoTokenTo verify(String lexema) {

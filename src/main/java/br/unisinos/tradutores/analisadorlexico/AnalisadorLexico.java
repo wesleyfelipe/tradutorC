@@ -38,7 +38,7 @@ public class AnalisadorLexico {
 				i++;
 		}
 
-		return tokens;
+                    return tokens;
 	}
 
 	protected GeracaoTokenTo analisarLexema(int position, List<String> lexemas) {
