@@ -38,13 +38,8 @@ public class Escopo {
         return escoposFilhos;
     }
 
-    public void addDeclaracao(Integer identificador, Integer id, Object valor, Token tokenAnterior) {
-        Declaracao d = new Declaracao(identificador, id, valor);
-        if (tokenAnterior.getValor().equals("float") || tokenAnterior.getValor().equals("int")
-                || tokenAnterior.getValor().equals("char") || tokenAnterior.getValor().equals("string")
-                || tokenAnterior.getValor().equals("bool") || tokenAnterior.getTipo().equals(TipoToken.COMMA)) {
-            this.declaracoes.add(d);
-        }
+    public void addDeclaracao(Declaracao d) {
+        this.declaracoes.add(d);
     }
 
     public int findDeclaracao(Integer identificador) {
@@ -60,19 +55,23 @@ public class Escopo {
         }
     }
 
-    public Declaracao getDeclaracao(Integer identificador) {
-        for(int i=0;i<this.escoposFilhos.size();i++){
-            Escopo current = current.getEscopoPai();
-            if (current.findDeclaracao(identificador) != -1) {
-                return current.declaracoes.get(current.findDeclaracao(identificador));
-            } else {
-
-            }
-        }
-    }
-
     public void addEscopoFilho(Escopo filho) {
         this.escoposFilhos.add(filho);
     }
 
+    public int getNextId() {
+        return this.declaracoes.size();
+    }
+
+    public Declaracao getDeclaracao(Escopo escopo, Object valor) {
+        if (escopo == null) {
+            return null;
+        }
+        for (int i = 0; i < escopo.declaracoes.size(); i++) {
+            if (escopo.declaracoes.get(i).getValor().equals(valor) || escopo.declaracoes.get(i).getValor().equals("&"+valor)) {
+                return escopo.declaracoes.get(i);
+            }
+        }
+        return getDeclaracao(escopo.getEscopoPai(),valor);
+    }
 }

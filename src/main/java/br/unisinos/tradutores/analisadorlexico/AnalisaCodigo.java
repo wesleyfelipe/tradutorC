@@ -20,7 +20,6 @@ public class AnalisaCodigo {
 
     private String code;
     private List<Token> tokens;
-    private Integer id = 0;
     private Escopo escopo;
 
     public AnalisaCodigo(String caminhoArquivo) {
@@ -40,14 +39,32 @@ public class AnalisaCodigo {
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);
                 if (token.getTipo().equals(TipoToken.L_BRACKET)) {
-                    Escopo filho= new Escopo(currentEscopo);
+                    Escopo filho = new Escopo(currentEscopo);
                     currentEscopo.addEscopoFilho(currentEscopo);
-                    currentEscopo=filho;
+                    currentEscopo = filho;
                 } else if (token.getTipo().equals(TipoToken.R_BRACKET)) {
-                    currentEscopo=currentEscopo.getEscopoPai();
+                    currentEscopo = currentEscopo.getEscopoPai();
                 } else if (token.getTipo().equals(TipoToken.ID)) {
-                    currentEscopo.addDeclaracao(i, id, token.getValor(), this.tokens.get((i - 1)));
-                    this.id++;
+                    Integer identificador = i;
+                    Object valor = token.getValor();
+                    Token tokenAnterior = this.tokens.get((i - 1));
+                    if (tokenAnterior.getValor().equals("float") || tokenAnterior.getValor().equals("int")
+                            || tokenAnterior.getValor().equals("char") || tokenAnterior.getValor().equals("string")
+                            || tokenAnterior.getValor().equals("bool") || tokenAnterior.getTipo().equals(TipoToken.COMMA)) {
+                        int nextId=currentEscopo.getNextId();
+                        Declaracao d = new Declaracao(identificador, nextId, valor);
+                        currentEscopo.addDeclaracao(d);
+                        token.setValor(nextId);
+                        
+                    }else if(token.getTipo().equals(TipoToken.ID)){
+                        Declaracao d=currentEscopo.getDeclaracao(currentEscopo, valor);
+                        if(d==null){
+                            token.setValor(-1);
+                        }else{
+                            token.setValor(d.getId());
+                        }
+                    }
+
                 }
             }
         }
@@ -57,12 +74,7 @@ public class AnalisaCodigo {
         System.out.println("======= Lista de Tokens Identificados ========");
         for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-            if (token.getTipo().equals(TipoToken.ID)) {
-                Declaracao d = this.escopo.getDeclaracao(i);
-                System.out.println("Token [" + i + "]: [" + token.getTipo() + "," + d.getId() + "]");
-            } else {
-                System.out.println("Token [" + i + "]: [" + token.getTipo() + "," + token.getValor() + "]");
-            }
+            System.out.println("Token [" + i + "]: [" + token.getTipo() + "," + token.getValor() + "]");
         }
 
     }
