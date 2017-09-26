@@ -57,10 +57,6 @@ public class Escopo {
         this.escoposFilhos.add(filho);
     }
 
-    public int getNextId() {
-        return this.declaracoes.size();
-    }
-
     public Declaracao getDeclaracao(Escopo escopo, Object valor) {
         if (escopo == null) {
             return null;

@@ -24,6 +24,8 @@ public class AnalisadorEscopoVariavel {
 	}
 
 	public List<Token> corrigeCodigo(List<Token> tokens) {
+		int numDeclaracoes = 1;
+
 		if (tokens.isEmpty()) {
 			System.out.println("Lista de tokens esta vazia!");
 		} else {
@@ -39,15 +41,18 @@ public class AnalisadorEscopoVariavel {
 				} else if (token.getTipo().equals(TipoToken.ID)) {
 					Integer identificador = i;
 					Object valor = token.getValor();
-					Token tokenAnterior = tokens.get((i - 1));
-					if (tokenAnterior.getValor().equals("float") || tokenAnterior.getValor().equals("int")
-							|| tokenAnterior.getValor().equals("char") || tokenAnterior.getValor().equals("string")
-							|| tokenAnterior.getValor().equals("bool")
-							|| tokenAnterior.getTipo().equals(TipoToken.COMMA)) {
-						int nextId = currentEscopo.getNextId();
-						Declaracao d = new Declaracao(identificador, nextId, valor);
+					Token tokenAnterior = i > 0 ? tokens.get((i - 1)) : null;
+					Token tokenAnterior2 = i > 1 ? tokens.get(i - 2) : null;
+					if (tokenAnterior != null && (tokenAnterior.getValor().equals("float")
+							|| tokenAnterior.getValor().equals("int") || tokenAnterior.getValor().equals("char")
+							|| tokenAnterior.getValor().equals("string") || tokenAnterior.getValor().equals("bool")
+							|| (tokenAnterior.getTipo().equals(TipoToken.COMMA))
+									&& TipoToken.ID.equals(tokenAnterior2.getTipo()))) {
+
+						Declaracao d = new Declaracao(identificador, numDeclaracoes, valor);
 						currentEscopo.addDeclaracao(d);
-						token.setValor(nextId);
+						token.setValor(numDeclaracoes);
+						numDeclaracoes++;
 
 					} else if (token.getTipo().equals(TipoToken.ID)) {
 						Declaracao d = currentEscopo.getDeclaracao(currentEscopo, valor);
