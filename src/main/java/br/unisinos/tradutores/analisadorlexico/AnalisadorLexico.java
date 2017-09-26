@@ -15,10 +15,11 @@ import br.unisinos.tradutores.analisadorlexico.tokenbuilder.NumberTokenBuilder;
 import br.unisinos.tradutores.analisadorlexico.tokenbuilder.OtherCharacterTokenBuilder;
 import br.unisinos.tradutores.analisadorlexico.tokenbuilder.RelationalOpTokenBuilder;
 import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ReservedWordTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.StringTokenBuilder;
 
 public class AnalisadorLexico {
 
-	private static final String REGEX_COMENTARIOS = "//.*|(\"(?:\\\\[^\"]|\\\\\"|.)*?\")|(?s)/\\*.*?\\*/";
+	private static final String REGEX_COMENTARIOS = "(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)";
 
 	public List<Token> analisar(String code) {
 		String codeClean = removerComentarios(code);
@@ -74,6 +75,10 @@ public class AnalisadorLexico {
 			return token;
 
 		token = IdentificadorFunctionTokenBuilder.verify(lexema, proximoLexema);
+		if (token != null)
+			return token;
+
+		token = StringTokenBuilder.verify(lexema);
 		if (token != null)
 			return token;
 
