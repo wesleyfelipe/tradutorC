@@ -5,8 +5,6 @@
  */
 package br.unisinos.tradutores.declaracaovariavel;
 
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +20,8 @@ public class Escopo {
 
     public Escopo(Escopo pai) {
         this.escopoPai = pai;
-        this.declaracoes = new ArrayList();
-        this.escoposFilhos = new ArrayList();
+        this.declaracoes = new ArrayList<>();
+        this.escoposFilhos = new ArrayList<>();
     }
 
     public Escopo getEscopoPai() {

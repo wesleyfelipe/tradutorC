@@ -44,10 +44,7 @@ public class AnalisadorLexico {
 
 	protected GeracaoTokenTo analisarLexema(int position, List<String> lexemas) {
 		String lexema = lexemas.get(position);
-		String proximoLexema = null;
-
-		if (lexemas.size() > position + 1)
-			proximoLexema = lexemas.get(position + 1);
+		String proximoLexema = lexemas.size() > position + 1 ? lexemas.get(position + 1) : null;
 
 		return analisarLexema(lexema, proximoLexema);
 	}

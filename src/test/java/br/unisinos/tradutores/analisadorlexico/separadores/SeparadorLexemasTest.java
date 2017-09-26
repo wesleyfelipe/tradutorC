@@ -23,7 +23,7 @@ public class SeparadorLexemasTest {
 		
 		Assert.assertFalse(SeparadorLexemas.isSeparador("a"));
 		Assert.assertFalse(SeparadorLexemas.isSeparador("8"));
-		Assert.assertFalse(SeparadorLexemas.isSeparador(">"));
+		Assert.assertFalse(SeparadorLexemas.isSeparador("G"));
 	}
 	
 	@Test
