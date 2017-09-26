@@ -1,10 +1,10 @@
-package br.unisinos.tradutores.analisadorlexico.geradorestoken;
+package br.unisinos.tradutores.analisadorlexico.tokenbuilder;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 
-public class GeradorOtherCharacterToken {
+public class OtherCharacterTokenBuilder {
 
 	private static final String EQUAL_OP = "=";
 	private static final String L_PAREN = "(";

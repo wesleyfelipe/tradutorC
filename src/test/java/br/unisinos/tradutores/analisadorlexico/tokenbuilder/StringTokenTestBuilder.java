@@ -1,14 +1,14 @@
-package br.unisinos.tradutores.analisadorlexico.geradoresToken;
+package br.unisinos.tradutores.analisadorlexico.tokenbuilder;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorStringToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.StringTokenBuilder;
 
-public class GeradorStringTokenTest {
+public class StringTokenTestBuilder {
 
 	@Test
 	public void verify_true(){
@@ -16,7 +16,7 @@ public class GeradorStringTokenTest {
 		Token expected = new Token(TipoToken.LITERAL_STRING, lexema);
 		GeracaoTokenTo to = new GeracaoTokenTo(expected);
 		
-		GeracaoTokenTo result = GeradorStringToken.verify(lexema);
+		GeracaoTokenTo result = StringTokenBuilder.verify(lexema);
 		
 		Assert.assertEquals(to, result);
 	}
@@ -24,10 +24,10 @@ public class GeradorStringTokenTest {
 	@Test
 	public void verify_false(){
 		String lexema1 = "teste\"";
-		GeracaoTokenTo result1 = GeradorStringToken.verify(lexema1);
+		GeracaoTokenTo result1 = StringTokenBuilder.verify(lexema1);
 		
 		String lexema2 = "\"teste";
-		GeracaoTokenTo result2 = GeradorStringToken.verify(lexema2);
+		GeracaoTokenTo result2 = StringTokenBuilder.verify(lexema2);
 		
 		Assert.assertNull(result1);
 		Assert.assertNull(result2);

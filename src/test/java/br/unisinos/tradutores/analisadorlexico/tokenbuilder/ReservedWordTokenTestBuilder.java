@@ -1,21 +1,21 @@
-package br.unisinos.tradutores.analisadorlexico.geradoresToken;
+package br.unisinos.tradutores.analisadorlexico.tokenbuilder;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorNumberToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ReservedWordTokenBuilder;
 
-public class GeradorNumberTokenTest {
-	
+public class ReservedWordTokenTestBuilder {
+
 	@Test
 	public void verify_true(){
-		Token expected = new Token(TipoToken.NUMBER, "1");
+		Token expected = new Token(TipoToken.RESERVED_WORD, "while");
 		GeracaoTokenTo to = new GeracaoTokenTo(expected);
 		
-		GeracaoTokenTo result = GeradorNumberToken.verify("1");
+		GeracaoTokenTo result = ReservedWordTokenBuilder.verify("while");
 		
 		Assert.assertEquals(to, result);
 	}
@@ -23,9 +23,8 @@ public class GeradorNumberTokenTest {
 	@Test
 	public void verify_false() {
 		
-		GeracaoTokenTo result = GeradorNumberToken.verify("do1");
+		GeracaoTokenTo result = ReservedWordTokenBuilder.verify("do1");
 		
 		Assert.assertNull(result);
 	}
-
 }

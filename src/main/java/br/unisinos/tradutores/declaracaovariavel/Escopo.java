@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.declaracaovariavel;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;

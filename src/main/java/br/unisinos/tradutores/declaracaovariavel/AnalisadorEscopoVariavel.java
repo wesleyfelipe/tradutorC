@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.unisinos.tradutores.analisadorlexico;
+package br.unisinos.tradutores.declaracaovariavel;
 
+import br.unisinos.tradutores.analisadorlexico.AnalisadorLexico;
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,13 @@ import static br.unisinos.tradutores.arquivo.Arquivo.lerArquivo;
  *
  * @author rudim
  */
-public class AnalisaCodigo {
+public class AnalisadorEscopoVariavel {
 
     private String code;
     private List<Token> tokens;
     private Escopo escopo;
 
-    public AnalisaCodigo(String caminhoArquivo) {
+    public AnalisadorEscopoVariavel(String caminhoArquivo) {
         this.code = lerArquivo(caminhoArquivo);
         this.escopo = new Escopo(null);
         AnalisadorLexico al = new AnalisadorLexico();

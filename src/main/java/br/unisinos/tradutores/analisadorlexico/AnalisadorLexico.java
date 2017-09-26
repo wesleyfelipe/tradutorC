@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorArithmeticalOpToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorIdentificadorFunctionToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorLogicOpToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorIdToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorNumberToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorOtherCharacterToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorRelationalOpToken;
-import br.unisinos.tradutores.analisadorlexico.geradorestoken.GeradorReservedWordToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 import br.unisinos.tradutores.analisadorlexico.separadores.SeparadorLexemas;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ArithmeticalOpTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.IdTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.IdentificadorFunctionTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.LogicOpTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.NumberTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.OtherCharacterTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.RelationalOpTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ReservedWordTokenBuilder;
 
 public class AnalisadorLexico {
 
@@ -38,7 +38,7 @@ public class AnalisadorLexico {
 				i++;
 		}
 
-                    return tokens;
+		return tokens;
 	}
 
 	protected GeracaoTokenTo analisarLexema(int position, List<String> lexemas) {
@@ -52,36 +52,36 @@ public class AnalisadorLexico {
 	}
 
 	protected GeracaoTokenTo analisarLexema(String lexema, String proximoLexema) {
-		
-		GeracaoTokenTo token = GeradorReservedWordToken.verify(lexema);
+
+		GeracaoTokenTo token = ReservedWordTokenBuilder.verify(lexema);
 		if (token != null)
 			return token;
 
-		token = GeradorArithmeticalOpToken.verify(lexema);
+		token = ArithmeticalOpTokenBuilder.verify(lexema);
 		if (token != null)
 			return token;
 
-		token = GeradorRelationalOpToken.verify(lexema, proximoLexema);
-		if (token != null)
-			return token;
-		
-		token = GeradorLogicOpToken.verify(lexema, proximoLexema);
-		if(token != null)
-			return token;
-
-		token = GeradorNumberToken.verify(lexema);
+		token = RelationalOpTokenBuilder.verify(lexema, proximoLexema);
 		if (token != null)
 			return token;
 
-		token = GeradorIdentificadorFunctionToken.verify(lexema, proximoLexema);
+		token = LogicOpTokenBuilder.verify(lexema, proximoLexema);
 		if (token != null)
 			return token;
 
-		token = GeradorIdToken.verify(lexema);
+		token = NumberTokenBuilder.verify(lexema);
 		if (token != null)
 			return token;
 
-		token = GeradorOtherCharacterToken.verify(lexema);
+		token = IdentificadorFunctionTokenBuilder.verify(lexema, proximoLexema);
+		if (token != null)
+			return token;
+
+		token = IdTokenBuilder.verify(lexema);
+		if (token != null)
+			return token;
+
+		token = OtherCharacterTokenBuilder.verify(lexema);
 		if (token != null)
 			return token;
 
