@@ -5,13 +5,11 @@
  */
 package br.unisinos.tradutores.declaracaovariavel;
 
-import br.unisinos.tradutores.analisadorlexico.AnalisadorLexico;
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import java.util.ArrayList;
 import java.util.List;
 
+import br.unisinos.tradutores.analisadorlexico.AnalisadorLexico;
+import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;
-import static br.unisinos.tradutores.arquivo.Arquivo.lerArquivo;
 
 /**
  *
@@ -23,8 +21,8 @@ public class AnalisadorEscopoVariavel {
     private List<Token> tokens;
     private Escopo escopo;
 
-    public AnalisadorEscopoVariavel(String caminhoArquivo) {
-        this.code = lerArquivo(caminhoArquivo);
+    public AnalisadorEscopoVariavel(String code) {
+        this.code = code;
         this.escopo = new Escopo(null);
         AnalisadorLexico al = new AnalisadorLexico();
         this.tokens = al.analisar(this.code);
