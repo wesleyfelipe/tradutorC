@@ -1,5 +1,4 @@
 package br.unisinos.tradutores.analisadorlexico.tokenbuilder;
-
 import java.util.Arrays;
 
 import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
@@ -8,8 +7,7 @@ import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 
 public class ReservedWordTokenBuilder {
 
-	private static final String[] PALAVRAS_RESERVADAS = { "void","do", "while", "if", "else", "switch", "for", "return",
-			"null", "int", "float", "double", "string", "bool", "true", "false" };
+	private static final String[] PALAVRAS_RESERVADAS = { "ENTAO","APOS", "FRENTE", "ESQUERDA", "DIREITA", "TRAS"};
 
 	public static GeracaoTokenTo verify(String lexema) {
 

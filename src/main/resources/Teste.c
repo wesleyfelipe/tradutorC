@@ -1,42 +1,5 @@
-void funcao1(){
-	float NotaDaP1, NotaDaP2;
-	float Media;
-	clrscr(); // Limpa a tela
-	NotaDaP1 = 6.6; // Atribuição do Valores das médias
-	NotaDaP2 = 8.2;
-	Media = (NotaDaP1 + NotaDaP2) / 2.0;
-	printf("Média Final : %6.3f", Media);
-	// No momento da execução sinal %6.3f vai ser substituído
-	// pelo valor da variável Media
-	// Média Final : 7.400
-	getch(); // espera que o usuário pressione uma tecla
-}
-
-int funcao2(){
-	int num;
-	string s;
-	printf ("Digite um número: ");
-	scanf ("%d",&num);
-	if (num>10){
-	printf ("\n\n O número e maior que 10");
-	s = "errou";
-	}
-	if (num==10){
-	printf ("\n\n Você acertou!\n");
-	printf ("O numero é igual a 10.");
-	s = "acertou";
-	}
-	if (num<10){
-	printf ("\n\n O número é menor que 10");
-	s = "errou";
-	}
-	if(num == 10 && s == "acertou"){
-	return 1;
-	}
-	return 0;
-}
-int main(){
-	funcao1();
-	funcao2();
-	return 1;
-}
+FRENTE 10 ENTAO ESQUERDA 20
+DIREITA 30 APOS ESQUERDA 20
+FRENTE 70
+DIREITA 100
+TRAS 20
