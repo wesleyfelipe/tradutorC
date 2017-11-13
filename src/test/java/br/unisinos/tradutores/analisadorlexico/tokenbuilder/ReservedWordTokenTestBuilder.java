@@ -12,10 +12,10 @@ public class ReservedWordTokenTestBuilder {
 
 	@Test
 	public void verify_true(){
-		Token expected = new Token(TipoToken.RESERVED_WORD, "while");
+		Token expected = new Token(TipoToken.RESERVED_WORD, "ENTAO");
 		GeracaoTokenTo to = new GeracaoTokenTo(expected);
 		
-		GeracaoTokenTo result = ReservedWordTokenBuilder.verify("while");
+		GeracaoTokenTo result = ReservedWordTokenBuilder.verify("ENTAO");
 		
 		Assert.assertEquals(to, result);
 	}

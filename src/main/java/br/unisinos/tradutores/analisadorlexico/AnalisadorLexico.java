@@ -7,23 +7,14 @@ import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
 import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
 import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 import br.unisinos.tradutores.analisadorlexico.separadores.SeparadorLexemas;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ArithmeticalOpTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.IdTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.IdentificadorFunctionTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.LogicOpTokenBuilder;
 import br.unisinos.tradutores.analisadorlexico.tokenbuilder.NumberTokenBuilder;
 import br.unisinos.tradutores.analisadorlexico.tokenbuilder.OtherCharacterTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.RelationalOpTokenBuilder;
 import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ReservedWordTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.StringTokenBuilder;
 
 public class AnalisadorLexico {
 
-	private static final String REGEX_COMENTARIOS = "(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)";
-
 	public List<Token> analisar(String code) {
-		String codeClean = removerComentarios(code);
-		List<String> lexemas = SeparadorLexemas.separarLexemas(codeClean);
+		List<String> lexemas = SeparadorLexemas.separarLexemas(code);
 		return analisarLexemas(lexemas);
 	}
 
@@ -55,31 +46,7 @@ public class AnalisadorLexico {
 		if (token != null)
 			return token;
 
-		token = ArithmeticalOpTokenBuilder.verify(lexema);
-		if (token != null)
-			return token;
-
-		token = RelationalOpTokenBuilder.verify(lexema, proximoLexema);
-		if (token != null)
-			return token;
-
-		token = LogicOpTokenBuilder.verify(lexema, proximoLexema);
-		if (token != null)
-			return token;
-
 		token = NumberTokenBuilder.verify(lexema);
-		if (token != null)
-			return token;
-
-		token = IdentificadorFunctionTokenBuilder.verify(lexema, proximoLexema);
-		if (token != null)
-			return token;
-
-		token = StringTokenBuilder.verify(lexema);
-		if (token != null)
-			return token;
-
-		token = IdTokenBuilder.verify(lexema);
 		if (token != null)
 			return token;
 
@@ -88,9 +55,5 @@ public class AnalisadorLexico {
 			return token;
 
 		return new GeracaoTokenTo(new Token(TipoToken.UNKNOWN, lexema));
-	}
-
-	protected String removerComentarios(String code) {
-		return code.replaceAll(REGEX_COMENTARIOS, "");
 	}
 }
