@@ -77,4 +77,58 @@ public class AnalisadorSemanticoTest {
 		Assert.assertEquals(expected, results);
 		
 	}
+	
+	@Test
+	public void analisar5() throws Exception{
+		
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ENTAO"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "20"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "30"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ENTAO"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "40"));
+		
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 20.0));
+		expected.add(new Movimento(Direcoes.FRENTE, 30.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 40.0));
+		
+		List<Movimento> results = new AnalisadorSemantico().analisar(tokens);
+		
+		Assert.assertEquals(expected, results);
+	}
+	
+public void analisar6() throws Exception{
+		
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ENTAO"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "20"));
+		tokens.add(new Token(TipoToken.L_PAREN, "("));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "30"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ENTAO"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "40"));
+		tokens.add(new Token(TipoToken.R_PAREN, ")"));
+		
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 20.0));
+		expected.add(new Movimento(Direcoes.FRENTE, 30.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 40.0));
+		
+		List<Movimento> results = new AnalisadorSemantico().analisar(tokens);
+		
+		Assert.assertEquals(expected, results);
+		
+	}
 }
