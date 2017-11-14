@@ -3,10 +3,10 @@ package br.unisinos.tradutores.analisadorlexico.tokenbuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
-import br.unisinos.tradutores.analisadorlexico.pojo.Token;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ReservedWordTokenBuilder;
+import br.unisinos.tradutores.analisadorlexico.GeracaoTokenTo;
+import br.unisinos.tradutores.analisadorlexico.ReservedWordTokenBuilder;
+import br.unisinos.tradutores.domain.TipoToken;
+import br.unisinos.tradutores.domain.Token;
 
 public class ReservedWordTokenTestBuilder {
 

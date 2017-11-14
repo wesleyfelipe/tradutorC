@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.pojo.Token;
+import br.unisinos.tradutores.domain.TipoToken;
+import br.unisinos.tradutores.domain.Token;
 
 public class AnalisadorLexicoTest {
 

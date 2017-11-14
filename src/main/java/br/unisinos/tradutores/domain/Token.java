@@ -1,6 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico.pojo;
-
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
+package br.unisinos.tradutores.domain;
 
 public class Token {
 	

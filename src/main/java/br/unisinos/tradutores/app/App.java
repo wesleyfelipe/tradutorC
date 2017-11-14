@@ -3,8 +3,8 @@ package br.unisinos.tradutores.app;
 import java.util.List;
 
 import br.unisinos.tradutores.analisadorlexico.AnalisadorLexico;
-import br.unisinos.tradutores.analisadorlexico.pojo.Token;
 import br.unisinos.tradutores.arquivo.Arquivo;
+import br.unisinos.tradutores.domain.Token;
 
 public class App {
 

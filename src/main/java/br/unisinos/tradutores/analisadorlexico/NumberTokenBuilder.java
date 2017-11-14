@@ -1,10 +1,9 @@
-package br.unisinos.tradutores.analisadorlexico.tokenbuilder;
+package br.unisinos.tradutores.analisadorlexico;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
-import br.unisinos.tradutores.analisadorlexico.pojo.Token;
+import br.unisinos.tradutores.domain.TipoToken;
+import br.unisinos.tradutores.domain.Token;
 
 public class NumberTokenBuilder {
 

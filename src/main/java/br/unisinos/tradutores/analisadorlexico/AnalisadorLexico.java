@@ -3,13 +3,8 @@ package br.unisinos.tradutores.analisadorlexico;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.unisinos.tradutores.analisadorlexico.enums.TipoToken;
-import br.unisinos.tradutores.analisadorlexico.pojo.GeracaoTokenTo;
-import br.unisinos.tradutores.analisadorlexico.pojo.Token;
-import br.unisinos.tradutores.analisadorlexico.separadores.SeparadorLexemas;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.NumberTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.OtherCharacterTokenBuilder;
-import br.unisinos.tradutores.analisadorlexico.tokenbuilder.ReservedWordTokenBuilder;
+import br.unisinos.tradutores.domain.TipoToken;
+import br.unisinos.tradutores.domain.Token;
 
 public class AnalisadorLexico {
 

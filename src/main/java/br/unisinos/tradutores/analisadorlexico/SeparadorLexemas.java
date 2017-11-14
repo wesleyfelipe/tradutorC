@@ -1,4 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico.separadores;
+package br.unisinos.tradutores.analisadorlexico;
 
 import java.util.ArrayList;
 import java.util.Arrays;

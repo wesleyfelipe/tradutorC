@@ -1,4 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico.enums;
+package br.unisinos.tradutores.domain;
 
 public enum TipoToken {
 

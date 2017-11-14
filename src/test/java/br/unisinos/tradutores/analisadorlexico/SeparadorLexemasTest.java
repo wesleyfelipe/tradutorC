@@ -1,4 +1,4 @@
-package br.unisinos.tradutores.analisadorlexico.separadores;
+package br.unisinos.tradutores.analisadorlexico;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.unisinos.tradutores.analisadorlexico.separadores.SeparadorLexemas;
+import br.unisinos.tradutores.analisadorlexico.SeparadorLexemas;
 
 public class SeparadorLexemasTest {
 	
