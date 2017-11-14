@@ -1,8 +1,10 @@
 package br.unisinos.tradutores.analisadorsemantico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.unisinos.tradutores.domain.Direcoes;
+import br.unisinos.tradutores.domain.Movimento;
 import br.unisinos.tradutores.domain.TipoToken;
 import br.unisinos.tradutores.domain.Token;
 
@@ -12,15 +14,18 @@ public class AnalisadorSemantico {
 
 	private List<Token> tokens;
 
-	public void analisar(List<Token> tokens) throws Exception {
+	public List<Movimento> analisar(List<Token> tokens) throws Exception {
 
 		if (tokens == null || tokens.isEmpty())
-			return;
+			return new ArrayList<>();
 
 		this.tokens = tokens;
 		this.tokenAtual = 0;
 
 		comando();
+		
+		//TODO
+		return new ArrayList<>();
 	}
 	
 	protected void advance() {
