@@ -59,4 +59,22 @@ public class AnalisadorSemanticoTest {
 		Assert.assertEquals(expected, results);
 		
 	}
+	
+	@Test
+	public void analisar4() throws Exception{
+		
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.L_PAREN, "("));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.R_PAREN, ")"));
+		
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+		
+		List<Movimento> results = new AnalisadorSemantico().analisar(tokens);
+		
+		Assert.assertEquals(expected, results);
+		
+	}
 }

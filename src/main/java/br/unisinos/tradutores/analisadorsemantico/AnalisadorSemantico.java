@@ -32,50 +32,42 @@ public class AnalisadorSemantico {
 
 	protected void comando() throws Exception {
 
-		Token t = getTokenAtual();
-
-		if (t == null)
+		if (getTokenAtual() == null)
 			return;
 
-		Direcoes direcao = isDirecao(t);
+		Direcoes direcao = isDirecao(getTokenAtual());
 
 		if (direcao != null) {
 
 			advance();
 			basico(direcao);
+			advance();
+			comando();
 
-		} else if (TipoToken.L_PAREN.equals(t.getTipo())) {
+		} else if (TipoToken.L_PAREN.equals(getTokenAtual().getTipo())) {
 
 			advance();
 			comando();
-			advance();
 
-			t = getTokenAtual();
-
-			if (!TipoToken.R_PAREN.equals(t.getTipo())) {
-				throw new Exception("Encontrado símbolo " + t.getValor() + " onde um parêntese direito era esperado.");
+			if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
+				throw new Exception("Encontrado símbolo " + getTokenAtual().getValor() + " onde um parêntese direito era esperado.");
 			}
 
-		} else {
-			t = getTokenAtual();
-			if (TipoToken.RESERVED_WORD.equals(t.getTipo())) {
-				if ("APOS".equals(t.getValor())) {
-					advance();
-					comando();
-				} else if ("ENTAO".equals(t.getValor())) {
-					advance();
-					comando();
-				} else {
-					throw new Exception("Encontrado símbolo " + t.getValor()
-							+ " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
-				}
+		} else if (TipoToken.RESERVED_WORD.equals(getTokenAtual().getTipo())) {
+			if ("APOS".equals(getTokenAtual().getValor())) {
+//				advance();
+//				comando();
+			} else if ("ENTAO".equals(getTokenAtual().getValor())) {
+//				advance();
+//				comando();
+			} else {
+				throw new Exception("Encontrado símbolo " + getTokenAtual().getValor()
+						+ " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
 			}
 			advance();
 			comando();
+
 		}
-
-		advance();
-		comando();
 	}
 
 	private Direcoes isDirecao(Token t) {
