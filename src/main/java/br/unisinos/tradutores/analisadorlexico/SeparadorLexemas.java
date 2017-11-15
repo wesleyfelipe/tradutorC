@@ -52,7 +52,7 @@ public class SeparadorLexemas {
 	}
 
 	protected static Boolean isCharacterIgnorado(Character ch) {
-		return ch == ' ' || ch == '\n' || ch == '\t' || ch == '\r';
+		return ch == ' ' || ch == '\t';
 	}
 
 	protected static Boolean isSeparador(String lex) {

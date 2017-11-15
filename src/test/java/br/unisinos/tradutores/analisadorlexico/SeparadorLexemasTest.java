@@ -68,6 +68,7 @@ public class SeparadorLexemasTest {
 		lexemas.add("=");
 		lexemas.add("0");
 		lexemas.add(";");
+		lexemas.add("\n");
 		lexemas.add("if");
 		lexemas.add("(");
 		lexemas.add("true");
@@ -128,15 +129,19 @@ public class SeparadorLexemasTest {
 		lexemas.add("a");
 		lexemas.add(")");
 		lexemas.add(":");
+		lexemas.add("\n");
 		lexemas.add("case");
 		lexemas.add("1");
 		lexemas.add(":");
+		lexemas.add("\n");
 		lexemas.add("b");
 		lexemas.add("=");
 		lexemas.add("0");
 		lexemas.add(";");
+		lexemas.add("\n");
 		lexemas.add("default");
 		lexemas.add(":");
+		lexemas.add("\n");
 		lexemas.add("b");
 		lexemas.add("=");
 		lexemas.add("8");

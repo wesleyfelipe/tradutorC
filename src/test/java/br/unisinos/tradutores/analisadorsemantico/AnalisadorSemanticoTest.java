@@ -209,4 +209,18 @@ public class AnalisadorSemanticoTest {
 		Assert.assertNull(ex);
 
 	}
+
+	@Test(expected = Exception.class)
+	public void analisar9() throws Exception {
+
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		
+		new AnalisadorSemantico().analisar(tokens);
+
+	}
 }

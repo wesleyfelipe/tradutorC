@@ -6,5 +6,6 @@ public enum TipoToken {
 	RESERVED_WORD,
 	L_PAREN,
 	R_PAREN,
+	NEW_LINE,
 	UNKNOWN;
 }

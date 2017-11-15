@@ -40,6 +40,7 @@ public class AnalisadorLexicoTest {
 		expected.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
 		expected.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
 		expected.add(new Token(TipoToken.NUMBER, "20"));
+		expected.add(new Token(TipoToken.NEW_LINE, "\n"));
 		
 		List<Token> result = new AnalisadorLexico().analisar(code);
 		
@@ -58,6 +59,8 @@ public class AnalisadorLexicoTest {
 		expected.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
 		expected.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
 		expected.add(new Token(TipoToken.NUMBER, "20"));
+		expected.add(new Token(TipoToken.NEW_LINE, "\n"));
+
 		
 		List<Token> result = new AnalisadorLexico().analisar(code);
 		
