@@ -266,4 +266,64 @@ public class AnalisadorSemanticoTest {
 		new AnalisadorSemantico().analisar(tokens);
 
 	}
+	
+	@Test(expected = Exception.class)
+	public void analisar13() throws Exception {
+
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.NEW_LINE, "\n"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "20"));
+		
+		new AnalisadorSemantico().analisar(tokens);
+
+	}
+	
+	@Test(expected = Exception.class)
+	public void analisar14() throws Exception {
+
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.NEW_LINE, "\n"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "20"));
+		
+		new AnalisadorSemantico().analisar(tokens);
+
+	}
+	
+	@Test(expected = Exception.class)
+	public void analisar15() throws Exception {
+
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "20"));
+		
+		new AnalisadorSemantico().analisar(tokens);
+
+	}
+	
+	@Test(expected = Exception.class)
+	public void analisar16() throws Exception {
+
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.UNKNOWN, "XXXX"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
+		tokens.add(new Token(TipoToken.NUMBER, "20"));
+		
+		new AnalisadorSemantico().analisar(tokens);
+
+	}
 }

@@ -22,6 +22,7 @@ public class AnalisadorSemanticoLinha {
 
 		this.tokens = tokens;
 		this.tokenAtual = 0;
+		this.linha = linha;
 
 		comando();
 
@@ -35,36 +36,6 @@ public class AnalisadorSemanticoLinha {
 
 	private Token getTokenAtual() {
 		return this.tokenAtual >= this.tokens.size() ? null : this.tokens.get(this.tokenAtual);
-	}
-
-	protected void tratarComandoDirecao(Direcoes direcao) throws Exception {
-		advance();
-		basico(direcao);
-		advance();
-		comando();
-	}
-
-	protected void tratarAberturaParentese() throws Exception {
-		advance();
-		comando();
-
-		if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
-			throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
-					+ " onde um parêntese direito era esperado.");
-		}
-	}
-
-	protected void tratarPalavraReservada() throws Exception {
-		if (!"APOS".equals(getTokenAtual().getValor()) && !"ENTAO".equals(getTokenAtual().getValor()))
-			throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
-					+ " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
-
-		advance();
-		comando();
-	}
-
-	protected void tratarTokenInvalidoEncontrado() throws Exception {
-		throw new Exception("LINHA: " + linha + ". Token inválido encontrado: " + getTokenAtual().getValor() + ".");
 	}
 
 	protected void comando() throws Exception {
@@ -101,5 +72,56 @@ public class AnalisadorSemanticoLinha {
 		if (!TipoToken.NUMBER.equals(getTokenAtual().getTipo()))
 			throw new Exception(
 					"LINHA: " + linha + ". Esperado um valor numérico após o comando " + direcao.name() + ".");
+	}
+
+	protected void tratarComandoDirecao(Direcoes direcao) throws Exception {
+		advance();
+		basico(direcao);
+		advance();
+		comando();
+	}
+
+	protected void tratarAberturaParentese() throws Exception {
+		advance();
+		comando();
+
+		if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
+			throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
+					+ " onde um parêntese direito era esperado.");
+		}
+	}
+
+	protected void tratarPalavraReservada() throws Exception {
+		Token token = getTokenAtual();
+		Boolean isEntaoApos = checkTokenIsEntaoApos(token);
+
+		if (!isEntaoApos) 
+			throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
+					+ " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
+
+		if (this.tokenAtual == 0) 
+			throw new Exception("LINHA: " + linha + ". Linhas de código não podem se iniciar com o token "
+					+ getTokenAtual().getValor() + ".");
+
+		
+		if (this.tokenAtual == this.tokens.size() - 1) 
+			throw new Exception(
+					"LINHA: " + linha + ". Esperado algum comando após o token " + getTokenAtual().getValor() + ".");
+
+		advance();
+
+		if (isEntaoApos && checkTokenIsEntaoApos(getTokenAtual()))
+			throw new Exception("LINHA: " + linha + ". Encontrado token " + getTokenAtual().getValor()
+					+ " em localização inválida.");
+
+		comando();
+	}
+
+	protected Boolean checkTokenIsEntaoApos(Token token) {
+		return "APOS".equals(getTokenAtual().getValor()) || "ENTAO".equals(getTokenAtual().getValor());
+	}
+
+	protected void tratarTokenInvalidoEncontrado() throws Exception {
+		throw new Exception("LINHA: " + linha + ". Token inválido encontrado: " + getTokenAtual().getValor() + ".");
 	}
 }
