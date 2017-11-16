@@ -38,10 +38,6 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
 		tokens.add(new Token(TipoToken.NUMBER, "20"));
 
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
-		expected.add(new Movimento(Direcoes.ESQUERDA, 20.0));
-
 		Exception ex = null;
 		try {
 			new AnalisadorSemantico().analisar(tokens);
@@ -58,9 +54,6 @@ public class AnalisadorSemanticoTest {
 		List<Token> tokens = new ArrayList<Token>();
 		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
 		tokens.add(new Token(TipoToken.NUMBER, "10"));
-
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
 		Exception ex = null;
 		try {
@@ -80,9 +73,6 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
 		tokens.add(new Token(TipoToken.NUMBER, "10"));
 		tokens.add(new Token(TipoToken.R_PAREN, ")"));
-
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
 		Exception ex = null;
 		try {
@@ -109,11 +99,6 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
 		tokens.add(new Token(TipoToken.NUMBER, "40"));
 
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
-		expected.add(new Movimento(Direcoes.ESQUERDA, 20.0));
-		expected.add(new Movimento(Direcoes.FRENTE, 30.0));
-		expected.add(new Movimento(Direcoes.ESQUERDA, 40.0));
 
 		Exception ex = null;
 		try {
@@ -141,11 +126,6 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.NUMBER, "40"));
 		tokens.add(new Token(TipoToken.R_PAREN, ")"));
 
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
-		expected.add(new Movimento(Direcoes.ESQUERDA, 20.0));
-		expected.add(new Movimento(Direcoes.FRENTE, 30.0));
-		expected.add(new Movimento(Direcoes.ESQUERDA, 40.0));
 
 		Exception ex = null;
 		try {
@@ -171,11 +151,6 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.NUMBER, "40"));
 		tokens.add(new Token(TipoToken.R_PAREN, ")"));
 
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
-		expected.add(new Movimento(Direcoes.FRENTE, 30.0));
-		expected.add(new Movimento(Direcoes.ESQUERDA, 40.0));
-
 		Exception ex = null;
 		try {
 			new AnalisadorSemantico().analisar(tokens);
@@ -195,10 +170,6 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
 		tokens.add(new Token(TipoToken.RESERVED_WORD, "ESQUERDA"));
 		tokens.add(new Token(TipoToken.NUMBER, "20"));
-
-		List<Movimento> expected = new ArrayList<>();
-		expected.add(new Movimento(Direcoes.ESQUERDA, 20.0));
-		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
 		Exception ex = null;
 		try {
@@ -324,6 +295,22 @@ public class AnalisadorSemanticoTest {
 		tokens.add(new Token(TipoToken.NUMBER, "20"));
 		
 		new AnalisadorSemantico().analisar(tokens);
+
+	}
+	
+	@Test
+	public void analisar17() throws Exception {
+
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+
+		List<Movimento> result  = new AnalisadorSemantico().analisar(tokens);
+		
+		Assert.assertEquals(expected, result);
 
 	}
 }

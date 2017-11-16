@@ -26,11 +26,10 @@ public class AnalisadorSemanticoLinha {
 
 		comando();
 
-		// TODO
-		return new ArrayList<>();
+		return OrganizadorMovimentos.ordenarMovimentos(tokens);
 	}
-
-	protected void advance() {
+	
+	private void avancar() {
 		this.tokenAtual += 1;
 	}
 
@@ -69,20 +68,20 @@ public class AnalisadorSemanticoLinha {
 	}
 
 	protected void basico(Direcoes direcao) throws Exception {
+		avancar();
 		if (!TipoToken.NUMBER.equals(getTokenAtual().getTipo()))
 			throw new Exception(
 					"LINHA: " + linha + ". Esperado um valor numérico após o comando " + direcao.name() + ".");
 	}
 
-	protected void tratarComandoDirecao(Direcoes direcao) throws Exception {
-		advance();
+	private void tratarComandoDirecao(Direcoes direcao) throws Exception {
 		basico(direcao);
-		advance();
+		avancar();
 		comando();
 	}
 
-	protected void tratarAberturaParentese() throws Exception {
-		advance();
+	private void tratarAberturaParentese() throws Exception {
+		avancar();
 		comando();
 
 		if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
@@ -91,7 +90,7 @@ public class AnalisadorSemanticoLinha {
 		}
 	}
 
-	protected void tratarPalavraReservada() throws Exception {
+	private void tratarPalavraReservada() throws Exception {
 		Token token = getTokenAtual();
 		Boolean isEntaoApos = checkTokenIsEntaoApos(token);
 
@@ -108,7 +107,7 @@ public class AnalisadorSemanticoLinha {
 			throw new Exception(
 					"LINHA: " + linha + ". Esperado algum comando após o token " + getTokenAtual().getValor() + ".");
 
-		advance();
+		avancar();
 
 		if (isEntaoApos && checkTokenIsEntaoApos(getTokenAtual()))
 			throw new Exception("LINHA: " + linha + ". Encontrado token " + getTokenAtual().getValor()
@@ -117,11 +116,11 @@ public class AnalisadorSemanticoLinha {
 		comando();
 	}
 
-	protected Boolean checkTokenIsEntaoApos(Token token) {
+	private Boolean checkTokenIsEntaoApos(Token token) {
 		return "APOS".equals(getTokenAtual().getValor()) || "ENTAO".equals(getTokenAtual().getValor());
 	}
 
-	protected void tratarTokenInvalidoEncontrado() throws Exception {
+	private void tratarTokenInvalidoEncontrado() throws Exception {
 		throw new Exception("LINHA: " + linha + ". Token inválido encontrado: " + getTokenAtual().getValor() + ".");
 	}
 }
