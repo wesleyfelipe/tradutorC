@@ -5,6 +5,9 @@ public enum Direcoes {
 	FRENTE, TRAS, ESQUERDA, DIREITA;
 	
 	public static Direcoes isDirecao(Token t) {
+		if(!TipoToken.RESERVED_WORD.equals(t.getTipo()))
+			return null;
+		
 		if (isTokenDirecao(t, Direcoes.ESQUERDA))
 			return Direcoes.ESQUERDA;
 

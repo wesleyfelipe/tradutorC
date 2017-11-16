@@ -3,78 +3,62 @@ package br.unisinos.tradutores.analisadorsemantico;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.unisinos.tradutores.domain.Direcoes;
 import br.unisinos.tradutores.domain.Movimento;
 import br.unisinos.tradutores.domain.TipoToken;
 import br.unisinos.tradutores.domain.Token;
 
 public class AnalisadorSemantico {
 
-	private int tokenAtual = 0;
-
-	private List<Token> tokens;
-
 	public List<Movimento> analisar(List<Token> tokens) throws Exception {
-
+		
 		if (tokens == null || tokens.isEmpty())
 			return new ArrayList<>();
-
-		this.tokens = tokens;
-		this.tokenAtual = 0;
-
-		comando();
 		
-		//TODO
-		return new ArrayList<>();
-	}
-	
-	protected void advance() {
-		this.tokenAtual += 1;
-	}
-	
-	private Token getTokenAtual() {
-		return this.tokenAtual >= this.tokens.size() ? null : this.tokens.get(this.tokenAtual);
-	}
-
-
-	protected void comando() throws Exception {
-
-		if (getTokenAtual() == null)
-			return;
-
-		Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
-
-		if (direcao != null) {
-
-			advance();
-			basico(direcao);
-			advance();
-			comando();
-
-		} else if (TipoToken.L_PAREN.equals(getTokenAtual().getTipo())) {
-
-			advance();
-			comando();
-
-			if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
-				throw new Exception("Encontrado símbolo " + getTokenAtual().getValor()
-						+ " onde um parêntese direito era esperado.");
+		Integer linha = 1;
+		List<Exception> errosEncontrados = new ArrayList<>();
+		List<Movimento> movimentos = new ArrayList<>();
+		List<Token> tokensLinha = new ArrayList<>();
+		
+		for (Token token : tokens) {
+			if(TipoToken.NEW_LINE.equals(token.getTipo())){
+				
+				try{
+					movimentos.addAll(new AnalisadorSemanticoLinha().analisar(tokensLinha, linha));
+				} catch (Exception e) {
+					errosEncontrados.add(e);
+				}
+				
+				linha++;
+				tokensLinha = new ArrayList<>();
+				
+			} else {
+				tokensLinha.add(token);
 			}
-
-		} else if (TipoToken.RESERVED_WORD.equals(getTokenAtual().getTipo())) {
-			
-			if (!"APOS".equals(getTokenAtual().getValor()) && !"ENTAO".equals(getTokenAtual().getValor()))
-				throw new Exception("Encontrado símbolo " + getTokenAtual().getValor()
-						+ " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
-
-			advance();
-			comando();
-
 		}
+		
+		if(!tokensLinha.isEmpty()){
+			try{
+				movimentos.addAll(new AnalisadorSemanticoLinha().analisar(tokensLinha, linha));
+			} catch (Exception e) {
+				errosEncontrados.add(e);
+			}
+		}
+		
+		if(errosEncontrados.isEmpty())
+			return movimentos;
+		
+		throw new Exception(comporMensagemErro(errosEncontrados));
 	}
-
-	protected void basico(Direcoes direcao) throws Exception {
-		if (!TipoToken.NUMBER.equals(getTokenAtual().getTipo()))
-			throw new Exception("Esperado um valor numérico após o comando " + direcao.name() + ".");
+ 
+	
+	protected String comporMensagemErro(List<Exception> erros){
+		StringBuilder sb = new StringBuilder("Erros encontrados: \n");
+		
+		for (Exception err : erros) {
+			sb.append(err.getMessage());
+			sb.append("\n");
+		}
+		
+		return sb.toString();
 	}
 }
