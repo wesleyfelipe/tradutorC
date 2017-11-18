@@ -49,30 +49,21 @@ public class OrdenadorMovimentos {
 		Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
 
 		if (direcao != null) {
-
-			this.grupoAtual.addMovimento(buildMovimento(direcao));
-
-		} else if("APOS".equals(getTokenAtual().getValor())){
-			 
-			avancar();
 			
-			direcao = Direcoes.isDirecao(getTokenAtual());
-			this.grupoAtual.addMovimentoApos(buildMovimento(direcao));
+			Movimento movimento = buildMovimento(direcao);
 			
+			if(avancar() && "APOS".equals(getTokenAtual().getValor())){
+				ordenarMovimentos();
+			}
+
+			this.grupoAtual.addMovimento(movimento);
+
 		}
 
 		if (avancar())
 			return ordenarMovimentos();
 
-		return getMovimentos(getGrupoPai(this.grupoAtual));
-	}
-
-	protected GrupoMovimentosTO getGrupoPai(GrupoMovimentosTO grupo) {
-		GrupoMovimentosTO temp = grupo.getGrupoPai();
-		if (temp == null)
-			return grupo;
-
-		return getGrupoPai(temp);
+		return getMovimentos(this.grupoAtual);
 	}
 
 	protected List<Movimento> getMovimentos(GrupoMovimentosTO grupo) {

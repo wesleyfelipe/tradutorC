@@ -8,25 +8,23 @@ import br.unisinos.tradutores.domain.Movimento;
 public class GrupoMovimentosTO {
 
 	private GrupoMovimentosTO grupoPai;
-	
+
 	private List<GrupoMovimentosTO> gruposFilhos = new ArrayList<>();
-	
+
 	private List<Movimento> movimentos = new ArrayList<>();
-	
-	public GrupoMovimentosTO addGrupoFilho(GrupoMovimentosTO grupo){
+
+	public GrupoMovimentosTO addGrupoFilho(GrupoMovimentosTO grupo) {
 		grupo.setGrupoPai(this);
 		this.gruposFilhos.add(grupo);
 		return grupo;
 	}
-	
-	public void addMovimento(Movimento movimento){
+
+	public void addMovimento(Movimento movimento) {
 		this.movimentos.add(movimento);
 	}
-	
-	public void addMovimentoApos(Movimento movimento){
-		Movimento temp = this.movimentos.get(this.movimentos.size() -1);
-		this.movimentos.set(this.movimentos.size() -1, movimento);
-		this.movimentos.add(temp);
+
+	public void addMovimentos(List<Movimento> movimentos) {
+		this.movimentos.addAll(movimentos);
 	}
 
 	public GrupoMovimentosTO getGrupoPai() {
@@ -52,5 +50,5 @@ public class GrupoMovimentosTO {
 	public void setMovimentos(List<Movimento> movimentos) {
 		this.movimentos = movimentos;
 	}
-	
+
 }
