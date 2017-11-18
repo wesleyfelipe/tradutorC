@@ -11,7 +11,7 @@ import br.unisinos.tradutores.domain.Movimento;
 import br.unisinos.tradutores.domain.TipoToken;
 import br.unisinos.tradutores.domain.Token;
 
-public class OrganizadorMovimentosTest {
+public class OrdenadorMovimentosTest {
 	
 	@Test
 	public void ordenarMovimentos1(){
@@ -23,7 +23,7 @@ public class OrganizadorMovimentosTest {
 		List<Movimento> expected = new ArrayList<>();
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
-		List<Movimento> result  = OrganizadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
@@ -43,7 +43,7 @@ public class OrganizadorMovimentosTest {
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
 
-		List<Movimento> result  = OrganizadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
@@ -63,7 +63,7 @@ public class OrganizadorMovimentosTest {
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
 
-		List<Movimento> result  = OrganizadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
@@ -83,7 +83,7 @@ public class OrganizadorMovimentosTest {
 		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
-		List<Movimento> result  = OrganizadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		

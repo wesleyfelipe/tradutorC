@@ -26,7 +26,7 @@ public class AnalisadorSemanticoLinha {
 
 		comando();
 
-		return OrganizadorMovimentos.ordenarMovimentos(tokens);
+		return OrdenadorMovimentos.ordenarMovimentos(tokens);
 	}
 	
 	private void avancar() {
