@@ -52,9 +52,8 @@ public class OrdenadorMovimentos {
 			
 			Movimento movimento = buildMovimento(direcao);
 			
-			if(avancar() && "APOS".equals(getTokenAtual().getValor())){
+			if(avancar() && "APOS".equals(getTokenAtual().getValor()))
 				ordenarMovimentos();
-			}
 
 			this.grupoAtual.addMovimento(movimento);
 

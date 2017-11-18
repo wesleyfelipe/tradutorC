@@ -114,6 +114,55 @@ public class OrdenadorMovimentosTest {
 	}
 	
 	@Test
+	public void ordenarMovimentos6(){
+		
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ENTAO"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "DIREITA"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "TRAS"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+		expected.add(new Movimento(Direcoes.TRAS, 10.0));
+		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
+		
+
+		List<Movimento> result  = new OrdenadorMovimentos().ordenarMovimentos(tokens);
+		
+		Assert.assertEquals(expected, result);
+		
+	}
+	
+	@Test
+	public void ordenarMovimentos7(){
+		
+		List<Token> tokens = new ArrayList<Token>();
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "FRENTE"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "APOS"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "DIREITA"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "ENTAO"));
+		tokens.add(new Token(TipoToken.RESERVED_WORD, "TRAS"));
+		tokens.add(new Token(TipoToken.NUMBER, "10"));
+
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
+		expected.add(new Movimento(Direcoes.TRAS, 10.0));
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+		
+		List<Movimento> result  = new OrdenadorMovimentos().ordenarMovimentos(tokens);
+		
+		Assert.assertEquals(expected, result);
+		
+	}
+	
+	@Test
 	public void getMovimentos1(){
 		GrupoMovimentosTO grupo = new GrupoMovimentosTO();
 		grupo.addMovimento(new Movimento(Direcoes.DIREITA, 10.0));
