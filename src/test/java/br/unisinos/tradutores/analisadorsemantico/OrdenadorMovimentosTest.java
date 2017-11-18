@@ -23,7 +23,7 @@ public class OrdenadorMovimentosTest {
 		List<Movimento> expected = new ArrayList<>();
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
-		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = new OrdenadorMovimentos().ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
@@ -43,7 +43,7 @@ public class OrdenadorMovimentosTest {
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
 
-		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = new OrdenadorMovimentos().ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
@@ -63,7 +63,7 @@ public class OrdenadorMovimentosTest {
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
 
-		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = new OrdenadorMovimentos().ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
@@ -83,10 +83,73 @@ public class OrdenadorMovimentosTest {
 		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
 		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
 
-		List<Movimento> result  = OrdenadorMovimentos.ordenarMovimentos(tokens);
+		List<Movimento> result  = new OrdenadorMovimentos().ordenarMovimentos(tokens);
 		
 		Assert.assertEquals(expected, result);
 		
+	}
+	
+	@Test
+	public void getMovimentos1(){
+		GrupoMovimentosTO grupo = new GrupoMovimentosTO();
+		grupo.addMovimento(new Movimento(Direcoes.DIREITA, 10.0));
+		grupo.addMovimento(new Movimento(Direcoes.ESQUERDA, 10.0));
+		
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 10.0));
+		
+		List<Movimento> result = new OrdenadorMovimentos().getMovimentos(grupo);
+		
+		Assert.assertEquals(expected, result);
+	}
+	
+	@Test
+	public void getMovimentos2(){
+		GrupoMovimentosTO grupo = new GrupoMovimentosTO();
+		grupo.addMovimento(new Movimento(Direcoes.DIREITA, 10.0));
+		
+		GrupoMovimentosTO grupo1 = new GrupoMovimentosTO();
+		grupo1.addMovimento(new Movimento(Direcoes.ESQUERDA, 10.0));
+		
+		grupo.addGrupoFilho(grupo1);
+		
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 10.0));
+		
+		List<Movimento> result = new OrdenadorMovimentos().getMovimentos(grupo);
+		
+		Assert.assertEquals(expected, result);
+	}
+	
+	@Test
+	public void getMovimentos3(){
+		GrupoMovimentosTO grupo = new GrupoMovimentosTO();
+		grupo.addMovimento(new Movimento(Direcoes.DIREITA, 10.0));
+		
+		GrupoMovimentosTO grupo1 = new GrupoMovimentosTO();
+		grupo1.addMovimento(new Movimento(Direcoes.ESQUERDA, 10.0));
+		
+		GrupoMovimentosTO grupo2 = new GrupoMovimentosTO();
+		grupo2.addMovimento(new Movimento(Direcoes.FRENTE, 10.0));
+		
+		GrupoMovimentosTO grupo3 = new GrupoMovimentosTO();
+		grupo3.addMovimento(new Movimento(Direcoes.TRAS, 10.0));
+		grupo1.addGrupoFilho(grupo3);
+		
+		grupo.addGrupoFilho(grupo1);
+		grupo.addGrupoFilho(grupo2);
+		
+		List<Movimento> expected = new ArrayList<>();
+		expected.add(new Movimento(Direcoes.DIREITA, 10.0));
+		expected.add(new Movimento(Direcoes.ESQUERDA, 10.0));
+		expected.add(new Movimento(Direcoes.TRAS, 10.0));
+		expected.add(new Movimento(Direcoes.FRENTE, 10.0));
+		
+		List<Movimento> result = new OrdenadorMovimentos().getMovimentos(grupo);
+		
+		Assert.assertEquals(expected, result);
 	}
 
 }

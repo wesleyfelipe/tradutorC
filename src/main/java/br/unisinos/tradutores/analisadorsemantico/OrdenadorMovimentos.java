@@ -9,37 +9,83 @@ import br.unisinos.tradutores.domain.Token;
 
 public class OrdenadorMovimentos {
 
-	public static List<Movimento> ordenarMovimentos(List<Token> tokens) {
-		List<Movimento> movimentos = new ArrayList<>();
+	private Integer index = 0;
 
-		Boolean inverter = Boolean.FALSE;
+	private List<Token> tokens;
 
-		for (int i = 0; i < tokens.size(); i++) {
+	GrupoMovimentosTO grupoAtual = new GrupoMovimentosTO();
 
-			Token token = tokens.get(i);
-			Direcoes direcao = Direcoes.isDirecao(token);
-			if (direcao != null) {
+	private Boolean avancar() {
+		if (this.index + 1 >= tokens.size())
+			return Boolean.FALSE;
 
-				Double distancia = Double.valueOf(tokens.get(i + 1).getValor().toString());
-				Movimento movimento = new Movimento(direcao, distancia);
+		this.index++;
+		return Boolean.TRUE;
+	}
 
-				if (inverter) {
+	private Token getTokenAtual() {
+		return this.tokens.get(this.index);
+	}
 
-					Movimento movimentoAnterior = movimentos.get(movimentos.size()-1);
-					movimentos.set(movimentos.size()-1, movimento);
-					movimentos.add(movimentoAnterior);
-					inverter = Boolean.FALSE;
-				} else {
-					movimentos.add(movimento);
-				}
+	public List<Movimento> ordenarMovimentos(List<Token> tokens) {
 
-			} else if ("APOS".equals(token.getValor())) {
-				inverter = Boolean.TRUE;
-			}
+		this.index = 0;
+		this.tokens = tokens;
+		this.grupoAtual = new GrupoMovimentosTO();
 
+		return ordenarMovimentos();
+	}
+
+	private Movimento buildMovimento(Direcoes direcao) {
+		avancar();
+
+		Double distancia = Double.valueOf(getTokenAtual().getValor().toString());
+		return new Movimento(direcao, distancia);
+
+	}
+
+	private List<Movimento> ordenarMovimentos() {
+
+		Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
+
+		if (direcao != null) {
+
+			this.grupoAtual.addMovimento(buildMovimento(direcao));
+
+		} else if("APOS".equals(getTokenAtual().getValor())){
+			 
+			avancar();
+			
+			direcao = Direcoes.isDirecao(getTokenAtual());
+			this.grupoAtual.addMovimentoApos(buildMovimento(direcao));
+			
 		}
 
+		if (avancar())
+			return ordenarMovimentos();
+
+		return getMovimentos(getGrupoPai(this.grupoAtual));
+	}
+
+	protected GrupoMovimentosTO getGrupoPai(GrupoMovimentosTO grupo) {
+		GrupoMovimentosTO temp = grupo.getGrupoPai();
+		if (temp == null)
+			return grupo;
+
+		return getGrupoPai(temp);
+	}
+
+	protected List<Movimento> getMovimentos(GrupoMovimentosTO grupo) {
+		List<Movimento> movimentos = new ArrayList<>();
+		if (grupo == null)
+			return movimentos;
+
+		movimentos.addAll(grupo.getMovimentos());
+		for (GrupoMovimentosTO gr : grupo.getGruposFilhos())
+			movimentos.addAll(getMovimentos(gr));
+
 		return movimentos;
+
 	}
 
 }
