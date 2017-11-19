@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.unisinos.tradutores.domain.Direcoes;
 import br.unisinos.tradutores.domain.Movimento;
-import br.unisinos.tradutores.domain.TipoToken;
 import br.unisinos.tradutores.domain.Token;
 
 public class OrdenadorMovimentos {
@@ -14,8 +13,8 @@ public class OrdenadorMovimentos {
 
 	private List<Token> tokens;
 
-	GrupoMovimentosTO grupoAtual = new GrupoMovimentosTO();
-
+	private List<Movimento> movimentos = new ArrayList<>();
+	
 	private Boolean avancar() {
 		if (this.index + 1 >= tokens.size())
 			return Boolean.FALSE;
@@ -36,9 +35,9 @@ public class OrdenadorMovimentos {
 
 		this.index = 0;
 		this.tokens = tokens;
-		this.grupoAtual = new GrupoMovimentosTO();
 
 		return ordenarMovimentos();
+		
 	}
 
 	private Movimento buildMovimento(Direcoes direcao) {
@@ -53,49 +52,23 @@ public class OrdenadorMovimentos {
 
 		Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
 
-		GrupoMovimentosTO grupoFilho = new GrupoMovimentosTO();
-		
 		if (direcao != null) {
 			
-			grupoFilho.addMovimento(buildMovimento(direcao));
+			Movimento movimento = buildMovimento(direcao);
 			
-
-		} else if(TipoToken.L_PAREN.equals(getTokenAtual().getTipo())){
+			Token temp = getProximoToken();
+			if(temp != null && "APOS".equals(temp.getValor())){
+				avancar();
+				ordenarMovimentos();
+			}
 			
-			this.grupoAtual = this.grupoAtual.addGrupoFilho(new GrupoMovimentosTO());
-			
-			
-		} else if(TipoToken.R_PAREN.equals(getTokenAtual().getTipo())){
-			
-			this.grupoAtual = this.grupoAtual.getGrupoPai();
-			
+			movimentos.add(movimento);
+						
 		}
 		
-		Token temp = getProximoToken();
-		if(temp != null && "APOS".equals(temp.getValor())){
-			avancar();
-			ordenarMovimentos();
-		}
-		
-		this.grupoAtual.addGrupoFilho(grupoFilho);
-
 		if (avancar())
 			return ordenarMovimentos();
 
-		return getMovimentos(this.grupoAtual);
-	}
-
-	protected List<Movimento> getMovimentos(GrupoMovimentosTO grupo) {
-		List<Movimento> movimentos = new ArrayList<>();
-		if (grupo == null)
-			return movimentos;
-
-		movimentos.addAll(grupo.getMovimentos());
-		for (GrupoMovimentosTO gr : grupo.getGruposFilhos())
-			movimentos.addAll(getMovimentos(gr));
-
 		return movimentos;
-
 	}
-
 }
