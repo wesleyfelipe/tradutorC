@@ -15,7 +15,6 @@ public class CalculadorDistanciaTest {
     @Test
     public void calcular1() {
         List<Movimento> movimentos = new ArrayList<>();
-        Double expected = 0.0;
 
         Coordenada result = CalculadorDistancia.calcularDistanciaPercorrida(movimentos);
         Assert.assertEquals(new Double(0.0), result.getDistancia());
