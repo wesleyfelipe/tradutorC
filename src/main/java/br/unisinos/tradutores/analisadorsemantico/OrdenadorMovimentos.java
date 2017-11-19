@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.unisinos.tradutores.domain.Direcoes;
 import br.unisinos.tradutores.domain.Movimento;
+import br.unisinos.tradutores.domain.TipoToken;
 import br.unisinos.tradutores.domain.Token;
 
 public class OrdenadorMovimentos {
@@ -25,6 +26,10 @@ public class OrdenadorMovimentos {
 
 	private Token getTokenAtual() {
 		return this.tokens.get(this.index);
+	}
+	
+	private Token getProximoToken() {
+		return (this.index + 1 >= this.tokens.size()) ? null : this.tokens.get(this.index + 1);
 	}
 
 	public List<Movimento> ordenarMovimentos(List<Token> tokens) {
@@ -52,11 +57,27 @@ public class OrdenadorMovimentos {
 			
 			Movimento movimento = buildMovimento(direcao);
 			
-			if(avancar() && "APOS".equals(getTokenAtual().getValor()))
+			Token temp = getProximoToken();
+			if(temp != null && "APOS".equals(temp.getValor())){
+				avancar();
 				ordenarMovimentos();
+			}
+			
+			GrupoMovimentosTO grupoFilho = new GrupoMovimentosTO();
+			grupoFilho.addMovimento(movimento);
+			
+			this.grupoAtual.addGrupoFilho(grupoFilho);
+			
+			//this.grupoAtual.addMovimento(movimento);
+			
 
-			this.grupoAtual.addMovimento(movimento);
-
+		} else if(TipoToken.L_PAREN.equals(getTokenAtual().getTipo())){
+			this.grupoAtual = this.grupoAtual.addGrupoFilho(new GrupoMovimentosTO());
+			
+			
+		} else if(TipoToken.R_PAREN.equals(getTokenAtual().getTipo())){
+			this.grupoAtual = this.grupoAtual.getGrupoPai();
+			
 		}
 
 		if (avancar())
