@@ -8,11 +8,12 @@ import br.unisinos.tradutores.arquivo.Arquivo;
 import br.unisinos.tradutores.domain.Coordenada;
 import br.unisinos.tradutores.domain.Movimento;
 import br.unisinos.tradutores.domain.Token;
+import javax.swing.JFrame;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
-
+        
         //Leitura do arquivo
         String sourceFile = "./src/main/resources/Teste.c";
         String code = Arquivo.lerArquivo(sourceFile);
@@ -26,11 +27,18 @@ public class App {
 
         //Cálculo da distância percorrida
         Coordenada coordenada = CalculadorDistancia.calcularDistanciaPercorrida(movimentos);
-
         System.out.println("===============================================");
         System.out.println("Distância percorrida: " + coordenada.getDistancia());
         System.out.println("Coordenada X: " + coordenada.getX());
         System.out.println("Coordenada Y: " + coordenada.getY());
+        
+        PlanoCartesiano plano = new PlanoCartesiano(movimentos);
+        JFrame f = new JFrame();
+        f.getContentPane().add(plano);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(1000, 1000);
+        f.setVisible(true);
+        
 
     }
 
