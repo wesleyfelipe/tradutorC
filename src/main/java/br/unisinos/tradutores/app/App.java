@@ -24,7 +24,9 @@ public class App {
 
         //Análise semantica e extração dos movimentos em ordem de execução
         List<Movimento> movimentos = new AnalisadorSemantico().analisar(tokens);
-
+        
+        System.out.println(movimentos.toString());
+        
         //Cálculo da distância percorrida
         Coordenada coordenada = CalculadorDistancia.calcularDistanciaPercorrida(movimentos);
         System.out.println("===============================================");

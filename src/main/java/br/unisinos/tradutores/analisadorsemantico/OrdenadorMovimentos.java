@@ -5,70 +5,72 @@ import java.util.List;
 
 import br.unisinos.tradutores.domain.Direcoes;
 import br.unisinos.tradutores.domain.Movimento;
+import br.unisinos.tradutores.domain.TipoToken;
 import br.unisinos.tradutores.domain.Token;
 
 public class OrdenadorMovimentos {
 
-	private Integer index = 0;
+    private Integer index = 0;
 
-	private List<Token> tokens;
+    private List<Token> tokens;
 
-	private List<Movimento> movimentos = new ArrayList<>();
-	
-	private Boolean avancar() {
-		if (this.index + 1 >= tokens.size())
-			return Boolean.FALSE;
+    private List<Movimento> movimentos = new ArrayList<>();
 
-		this.index++;
-		return Boolean.TRUE;
-	}
+    private Boolean avancar() {
+        if (this.index + 1 >= tokens.size()) {
+            return Boolean.FALSE;
+        }
 
-	private Token getTokenAtual() {
-		return this.tokens.get(this.index);
-	}
-	
-	private Token getProximoToken() {
-		return (this.index + 1 >= this.tokens.size()) ? null : this.tokens.get(this.index + 1);
-	}
+        this.index++;
+        return Boolean.TRUE;
+    }
 
-	public List<Movimento> ordenarMovimentos(List<Token> tokens) {
+    private Token getTokenAtual() {
+        return this.tokens.get(this.index);
+    }
 
-		this.index = 0;
-		this.tokens = tokens;
+    private Token getProximoToken() {
+        return (this.index + 1 >= this.tokens.size()) ? null : this.tokens.get(this.index + 1);
+    }
 
-		return ordenarMovimentos();
-		
-	}
+    public List<Movimento> ordenarMovimentos(List<Token> tokens) {
 
-	private Movimento buildMovimento(Direcoes direcao) {
-		avancar();
+        this.index = 0;
+        this.tokens = tokens;
+        
+        return ordenarMovimentos();
 
-		Double distancia = Double.valueOf(getTokenAtual().getValor().toString());
-		return new Movimento(direcao, distancia);
+    }
 
-	}
+    private Movimento buildMovimento(Direcoes direcao) {
+        avancar();
 
-	private List<Movimento> ordenarMovimentos() {
+        Double distancia = Double.valueOf(getTokenAtual().getValor().toString());
+        return new Movimento(direcao, distancia);
 
-		Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
+    }
 
-		if (direcao != null) {
-			
-			Movimento movimento = buildMovimento(direcao);
-			
-			Token temp = getProximoToken();
-			if(temp != null && "APOS".equals(temp.getValor())){
-				avancar();
-				ordenarMovimentos();
-			}
-			
-			movimentos.add(movimento);
-						
-		}
-		
-		if (avancar())
-			return ordenarMovimentos();
+    private List<Movimento> ordenarMovimentos() {
 
-		return movimentos;
-	}
+        Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
+
+        if (direcao != null) {
+
+            Movimento movimento = buildMovimento(direcao);
+
+            Token temp = getProximoToken();
+            if (temp != null && "APOS".equals(temp.getValor())) {
+                avancar();
+                ordenarMovimentos();
+            }
+
+            movimentos.add(movimento);
+
+        }
+        if (avancar()) {
+            return ordenarMovimentos();
+        }
+
+        return movimentos;
+    }
 }
