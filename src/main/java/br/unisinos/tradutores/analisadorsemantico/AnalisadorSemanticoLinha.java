@@ -10,137 +10,117 @@ import br.unisinos.tradutores.domain.Token;
 
 public class AnalisadorSemanticoLinha {
 
-    private int tokenAtual = 0;
-    private Integer linha = 1;
+	private int tokenAtual = 0;
+	private Integer linha = 1;
 
-    private List<Token> tokens;
-    private List<Token> tokenParenteses;
-    private List<Movimento> movimentos = new ArrayList<>();
+	private List<Token> tokens;
 
-    public List<Movimento> analisar(List<Token> tokens, Integer linha) throws Exception {
+	public List<Movimento> analisar(List<Token> tokens, Integer linha) throws Exception {
 
-        if (tokens == null || tokens.isEmpty()) {
-            return new ArrayList<>();
-        }
+		if (tokens == null || tokens.isEmpty())
+			return new ArrayList<>();
 
-        if (tokenParenteses == null || tokenParenteses.isEmpty()) {
-            return new ArrayList<>();
-        }
+		this.tokens = tokens;
+		this.tokenAtual = 0;
+		this.linha = linha;
 
-        this.tokens = tokens;
-        this.tokenAtual = 0;
-        this.linha = linha;
+		comando();
 
-        comando();
+		return new OrdenadorMovimentos().ordenarMovimentos(tokens);
+	}
+	
+	private void avancar() {
+		this.tokenAtual += 1;
+	}
 
-        movimentos.addAll(new OrdenadorMovimentos().ordenarMovimentos(tokens));
-        return movimentos;
-    }
+	private Token getTokenAtual() {
+		return this.tokenAtual >= this.tokens.size() ? null : this.tokens.get(this.tokenAtual);
+	}
 
-    private void avancar() {
-        this.tokenAtual += 1;
-    }
+	protected void comando() throws Exception {
 
-    private Token getTokenAtual() {
-        return this.tokenAtual >= this.tokens.size() ? null : this.tokens.get(this.tokenAtual);
-    }
+		if (getTokenAtual() == null)
+			return;
 
-    protected void comando() throws Exception {
+		Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
 
-        if (getTokenAtual() == null) {
-            return;
-        }
+		if (direcao != null) {
 
-        Direcoes direcao = Direcoes.isDirecao(getTokenAtual());
+			tratarComandoDirecao(direcao);
 
-        if (direcao != null) {
+		} else if (TipoToken.L_PAREN.equals(getTokenAtual().getTipo())) {
 
-            tratarComandoDirecao(direcao);
+			tratarAberturaParentese();
 
-        } else if (TipoToken.L_PAREN.equals(getTokenAtual().getTipo())) {
-            tratarAberturaParentese();
+		} else if (TipoToken.RESERVED_WORD.equals(getTokenAtual().getTipo())) {
 
-        } else if (TipoToken.RESERVED_WORD.equals(getTokenAtual().getTipo())) {
+			tratarPalavraReservada();
 
-            tratarPalavraReservada();
+		} else if (TipoToken.R_PAREN.equals(getTokenAtual().getTipo())
+				|| TipoToken.NEW_LINE.equals(getTokenAtual().getTipo())) {
+			return;
 
-        } else if (TipoToken.R_PAREN.equals(getTokenAtual().getTipo())
-                || TipoToken.NEW_LINE.equals(getTokenAtual().getTipo())) {
-            return;
+		} else {
 
-        } else {
+			tratarTokenInvalidoEncontrado();
 
-            tratarTokenInvalidoEncontrado();
+		}
+	}
 
-        }
-    }
+	protected void basico(Direcoes direcao) throws Exception {
+		avancar();
+		if (!TipoToken.NUMBER.equals(getTokenAtual().getTipo()))
+			throw new Exception(
+					"LINHA: " + linha + ". Esperado um valor numérico após o comando " + direcao.name() + ".");
+	}
 
-    protected void basico(Direcoes direcao) throws Exception {
-        avancar();
-        if (!TipoToken.NUMBER.equals(getTokenAtual().getTipo())) {
-            throw new Exception(
-                    "LINHA: " + linha + ". Esperado um valor numérico após o comando " + direcao.name() + ".");
-        }
-    }
+	private void tratarComandoDirecao(Direcoes direcao) throws Exception {
+		basico(direcao);
+		avancar();
+		comando();
+	}
 
-    private void tratarComandoDirecao(Direcoes direcao) throws Exception {
-        basico(direcao);
-        avancar();
-        comando();
-    }
+	private void tratarAberturaParentese() throws Exception {
+		avancar();
+		comando();
 
-    private void tratarAberturaParentese() throws Exception {
-        while (TipoToken.R_PAREN.equals(getTokenAtual().getTipo()) || TipoToken.NEW_LINE.equals(getTokenAtual().getTipo())) {
-            Token temp = getTokenAtual();
-            if (temp != null) {
-                this.tokenParenteses.add(temp);
-                avancar();
-            }
-        }
-        AnalisadorSemanticoLinha asl = new AnalisadorSemanticoLinha();
-        this.movimentos.addAll(asl.analisar(tokenParenteses, linha));
-        comando();
+		if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
+			throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
+					+ " onde um parêntese direito era esperado.");
+		}
+	}
 
-        if (!TipoToken.R_PAREN.equals(getTokenAtual().getTipo())) {
-            throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
-                    + " onde um parêntese direito era esperado.");
-        }
-    }
+	private void tratarPalavraReservada() throws Exception {
+		Token token = getTokenAtual();
+		Boolean isEntaoApos = checkTokenIsEntaoApos(token);
 
-    private void tratarPalavraReservada() throws Exception {
-        Token token = getTokenAtual();
-        Boolean isEntaoApos = checkTokenIsEntaoApos(token);
+		if (!isEntaoApos) 
+			throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
+					+ " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
 
-        if (!isEntaoApos) {
-            throw new Exception("LINHA: " + linha + ". Encontrado símbolo " + getTokenAtual().getValor()
-                    + " onde as palavras reservadas APOS ou ENTAO eram esperadas.");
-        }
+		if (this.tokenAtual == 0) 
+			throw new Exception("LINHA: " + linha + ". Linhas de código não podem se iniciar com o token "
+					+ getTokenAtual().getValor() + ".");
 
-        if (this.tokenAtual == 0) {
-            throw new Exception("LINHA: " + linha + ". Linhas de código não podem se iniciar com o token "
-                    + getTokenAtual().getValor() + ".");
-        }
+		
+		if (this.tokenAtual == this.tokens.size() - 1) 
+			throw new Exception(
+					"LINHA: " + linha + ". Esperado algum comando após o token " + getTokenAtual().getValor() + ".");
 
-        if (this.tokenAtual == this.tokens.size() - 1) {
-            throw new Exception(
-                    "LINHA: " + linha + ". Esperado algum comando após o token " + getTokenAtual().getValor() + ".");
-        }
+		avancar();
 
-        avancar();
+		if (isEntaoApos && checkTokenIsEntaoApos(getTokenAtual()))
+			throw new Exception("LINHA: " + linha + ". Encontrado token " + getTokenAtual().getValor()
+					+ " em localização inválida.");
 
-        if (isEntaoApos && checkTokenIsEntaoApos(getTokenAtual())) {
-            throw new Exception("LINHA: " + linha + ". Encontrado token " + getTokenAtual().getValor()
-                    + " em localização inválida.");
-        }
+		comando();
+	}
 
-        comando();
-    }
+	private Boolean checkTokenIsEntaoApos(Token token) {
+		return "APOS".equals(getTokenAtual().getValor()) || "ENTAO".equals(getTokenAtual().getValor());
+	}
 
-    private Boolean checkTokenIsEntaoApos(Token token) {
-        return "APOS".equals(getTokenAtual().getValor()) || "ENTAO".equals(getTokenAtual().getValor());
-    }
-
-    private void tratarTokenInvalidoEncontrado() throws Exception {
-        throw new Exception("LINHA: " + linha + ". Token inválido encontrado: " + getTokenAtual().getValor() + ".");
-    }
+	private void tratarTokenInvalidoEncontrado() throws Exception {
+		throw new Exception("LINHA: " + linha + ". Token inválido encontrado: " + getTokenAtual().getValor() + ".");
+	}
 }

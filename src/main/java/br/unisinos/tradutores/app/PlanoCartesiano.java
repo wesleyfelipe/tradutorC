@@ -116,13 +116,6 @@ public class PlanoCartesiano extends JComponent {
 
         }
 
-//        AffineTransform affineTransform = new AffineTransform();
-//        affineTransform.rotate(0, 0, 0);
-//        Font rotatedFont = font.deriveFont(affineTransform);
-//        g.setFont(rotatedFont);
-//        g.drawString("X "+cameraX, 0, 100);
-//        g.drawString("Y "+cameraY, 0, 200);
-//        g.dispose();
 //            /* frente */
             if (cameraY==1 && cameraX==0) {
                 g.drawString("▼", x.intValue()-10, y.intValue()+10);

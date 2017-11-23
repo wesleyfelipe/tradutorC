@@ -25,7 +25,6 @@ public class App {
         //Análise semantica e extração dos movimentos em ordem de execução
         List<Movimento> movimentos = new AnalisadorSemantico().analisar(tokens);
         
-        System.out.println(movimentos.toString());
         
         //Cálculo da distância percorrida
         Coordenada coordenada = CalculadorDistancia.calcularDistanciaPercorrida(movimentos);
@@ -38,7 +37,7 @@ public class App {
         JFrame f = new JFrame();
         f.getContentPane().add(plano);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1000, 1000);
+        f.setSize(700, 700);
         f.setVisible(true);
         
 
